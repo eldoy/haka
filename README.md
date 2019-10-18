@@ -6,7 +6,7 @@ Tiny Javascript HTML and DOM manipulation library.
 
 ### Usage
 ```javascript
-var { h, q, qa } = require('haka')
+var { h, t, q, qa } = require('haka')
 
 // Get first element
 q('#el')
@@ -14,19 +14,28 @@ q('#el')
 // Get all elements
 qa('.els')
 
-// Insert string into element
+// Insert text into element
+t('#el', 'Hello')
+
+// Get text from element
+t('#el')
+
+// Get HTML from element
+h('#el')
+
+// Insert HTML into element
 h('#el', '<div>Hello</div>')
 
-// Insert string before element
+// Insert HTML before element
 h('#el', '<div>Hello</div>', 'before')
 
-// Insert string after element
+// Insert HTML after element
 h('#el', '<div>Hello</div>', 'after')
 
-// Insert string at top of element
+// Insert HTML at top of element
 h('#el', '<div>Hello</div>', 'top')
 
-// Insert string at end of element
+// Insert HTML at end of element
 h('#el', '<div>Hello</div>', 'end')
 ```
 ISC licensed. Enjoy!

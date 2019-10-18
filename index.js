@@ -1,17 +1,4 @@
-function m (t, ...d) {
-  for (var h = '', i = 0; i < d.length; i++) h += t[i] + d[i]
-  return h += t[i]
-}
-
-function q (s) {
-  return document.querySelector(s)
-}
-
-function qa (s) {
-  return document.querySelectorAll(s)
-}
-
-function h (s, h, x, t) {
+function h(s, h, x) {
   return (
     !h && q(s).innerHTML ||
     !x && (q(s).innerHTML = h) ||
@@ -25,9 +12,21 @@ function h (s, h, x, t) {
   )
 }
 
-// function t (s, h, x) {
+function t(s, t) {
+  return t ? (q(s).textContent = t) : q(s).textContent
+}
 
-//   // !x && (q(s).textContent = h) || x[0] == 'r' && (q(s).outerText = h) || q(s).insertAdjacentText((x[0] == 'b' && 'beforebegin' || x[0] == 'a' && 'afterend' || x[0] == 't' && 'afterbegin' || x[0] == 'e' && 'beforeend'), h)
-// }
+function q(s) {
+  return document.querySelector(s)
+}
 
-module.exports = { m, q, qa, h }
+function qa(s) {
+  return document.querySelectorAll(s)
+}
+
+function m(t, ...d) {
+  for (var h = '', i = 0; i < d.length; i++) h += t[i] + d[i]
+  return h += t[i]
+}
+
+module.exports = { h, t, q, qa, m }

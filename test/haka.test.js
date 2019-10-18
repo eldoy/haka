@@ -1,25 +1,8 @@
-const { m, q, qa, h } = require('../index.js')
+const { h, t, q, qa, m } = require('../index.js')
 
 describe('haka', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
-  })
-
-  it('should create HTML', async () => {
-    document.body.innerHTML = m`<div id="app">Hello</div>`
-    expect(document.body.innerHTML).toBe('<div id="app">Hello</div>')
-  })
-
-  it('should query an element', async () => {
-    document.body.innerHTML = `<div id="app">Hello</div>`
-    expect(q('#app').innerHTML).toBe('Hello')
-  })
-
-  it('should query an element', async () => {
-    document.body.innerHTML = `<ul><li>Hello</li><li>Hello</li></ul>`
-    expect(qa('li').length).toBe(2)
-    expect(qa('li')[0].innerHTML).toBe('Hello')
-    expect(qa('li')[1].innerHTML).toBe('Hello')
   })
 
   it('should get the inner HTML', async () => {
@@ -91,5 +74,33 @@ describe('haka', () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
     h('#app', '<div>Replace</div>', 'r')
     expect(document.body.innerHTML).toBe('<div>Replace</div>')
+  })
+
+  it('should get the text of an element', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(t('#app')).toBe('Hello')
+  })
+
+  it('should set the text of an element', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(t('#app', 'Bye')).toBe('Bye')
+    expect(q('#app').textContent).toBe('Bye')
+  })
+
+  it('should query an element', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(q('#app').innerHTML).toBe('Hello')
+  })
+
+  it('should query an element', async () => {
+    document.body.innerHTML = `<ul><li>Hello</li><li>Hello</li></ul>`
+    expect(qa('li').length).toBe(2)
+    expect(qa('li')[0].innerHTML).toBe('Hello')
+    expect(qa('li')[1].innerHTML).toBe('Hello')
+  })
+
+  it('should create HTML', async () => {
+    document.body.innerHTML = m`<div id="app">Hello</div>`
+    expect(document.body.innerHTML).toBe('<div id="app">Hello</div>')
   })
 })
