@@ -1,15 +1,12 @@
 function h(s, h, x) {
-  return (
-    !h && q(s).innerHTML ||
+  return !h && q(s).innerHTML ||
     !x && (q(s).innerHTML = h) ||
     x[0] == 'r' && (q(s).outerHTML = h) ||
     q(s).insertAdjacentHTML((
       x[0] == 'b' && 'beforebegin' ||
       x[0] == 'a' && 'afterend' ||
       x[0] == 't' && 'afterbegin' ||
-      x[0] == 'e' && 'beforeend'
-    ), h)
-  )
+      x[0] == 'e' && 'beforeend'), h)
 }
 
 function t(s, t) {
