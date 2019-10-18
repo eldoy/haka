@@ -1,0 +1,15 @@
+{
+  "name": "haka",
+  "version": "0.1.0",
+  "description": "Tiny Javascript HTML and DOM manipulation library",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "keywords": [],
+  "author": "Vidar Eldøy <vidar@eldoy.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
