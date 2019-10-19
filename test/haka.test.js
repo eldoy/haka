@@ -103,4 +103,32 @@ describe('haka', () => {
     document.body.innerHTML = m`<div id="app">Hello</div>`
     expect(document.body.innerHTML).toBe('<div id="app">Hello</div>')
   })
+
+  it('should work with HTMLElements', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    let app = document.querySelector('#app')
+    expect(q(app).innerHTML).toBe('Hello')
+  })
+
+  it('should query from element as string', async () => {
+    document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+    expect(q('span', '#app').textContent).toBe('Hello')
+  })
+
+  it('should query from element as element', async () => {
+    document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+    const app = document.getElementById('app')
+    expect(q('span', app).textContent).toBe('Hello')
+  })
+
+  it('should query all from element as string', async () => {
+    document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+    expect(qa('span', '#app')[0].textContent).toBe('Hello')
+  })
+
+  it('should query all from element as string', async () => {
+    document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+    const app = document.getElementById('app')
+    expect(qa('span', '#app')[0].textContent).toBe('Hello')
+  })
 })

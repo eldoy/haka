@@ -13,12 +13,12 @@ function t(s, t) {
   return t ? (q(s).textContent = t) : q(s).textContent
 }
 
-function q(s) {
-  return document.querySelector(s)
+function q(s, f) {
+  return typeof s == 'string' ? (f ? q(f) : document).querySelector(s) : s
 }
 
-function qa(s) {
-  return document.querySelectorAll(s)
+function qa(s, f) {
+  return (f ? q(f) : document).querySelectorAll(s)
 }
 
 function m(t, ...d) {
