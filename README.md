@@ -55,5 +55,17 @@ attr('#app', 'class')
 
 // Set attributes
 attr('#app', { class: 'hello', id: 'bye' })
+
+// Get a cookie
+cookie('name')
+
+// Set a cookie, expires in 30 days
+cookie('name', 'hello')
+
+// Set a cookie with expiry in days
+cookie('name', 'hello', 7)
+
+// Delete a cookie
+cookie('name', '', -1)
 ```
 ISC licensed. Enjoy!

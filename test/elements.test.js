@@ -1,6 +1,6 @@
 const { q, qa, html, text, attr, h } = require('../index.js')
 
-describe('haka', () => {
+describe('elements', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
   })
