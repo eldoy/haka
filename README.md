@@ -1,12 +1,12 @@
 # HAKA
-Tiny Javascript HTML and DOM manipulation library.
+Functional Javascript HTML and DOM manipulation toolkit.
 
 ### Install
 `npm i haka`
 
 ### Usage
 ```javascript
-var { h, t, q, qa } = require('haka')
+var { q, qa, html, text, attr, cookie, flash, grab } = require('haka')
 
 // Get first element from document
 q('#el')

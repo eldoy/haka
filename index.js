@@ -60,6 +60,42 @@ function cookie(key, val, time) {
   }
 }
 
+function flash(selector, message, now) {
+  var el = q(selector)
+  if (!el) return
+  if (typeof timeout != 'undefined') clearTimeout(timeout)
+  message = (message || cookie('flash') || '').trim()
+  if (!now) {
+    cookie('flash', message)
+  } else {
+    cookie('flash', '', -1)
+    if (message.length) {
+      text(el, message)
+      el.style.opacity = 1
+      scroll(0, 0)
+      timeout = setTimeout(function() { el.style.opacity = 0 }, 5000)
+    }
+  }
+}
+
+function grab(e) {
+	var d = {}, o, x
+	for (var i = 0; i < e.elements.length; i++) {
+    var f = e.elements[i]
+		if (f.name && !f.disabled && ['file', 'reset', 'submit', 'button'].indexOf(f.type) < 0)
+      if (f.type == 'select-multiple') {
+        for (var n = 0, v = []; n < f.options.length; n++)
+          if ((o = f.options[n]).selected) v.push(o.value)
+        d[f.name] = v
+      } else if (f.type == 'checkbox') {
+        if (f.checked) d[(x = f.name)] ? d[x].push(f.value) : d[x] = [f.value]
+      } else {
+        d[f.name] = f.value
+      }
+	}
+	return d
+}
+
 function h(tags, ...data) {
   for (var html = '', i = 0; i < data.length; i++) {
     html += tags[i] + data[i]
@@ -67,4 +103,4 @@ function h(tags, ...data) {
   return html += tags[i]
 }
 
-module.exports = { q, qa, html, text, attr, cookie, h }
+module.exports = { q, qa, html, text, attr, cookie, flash, grab, h }
