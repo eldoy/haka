@@ -6,7 +6,7 @@ Functional Javascript HTML and DOM manipulation toolkit.
 
 ### Usage
 ```javascript
-var { q, qa, html, text, attr, cookie, flash, grab } = require('haka')
+var { q, qa, html, text, attr, cookie, flash, serialize } = require('haka')
 
 // Get first element from document
 q('#el')
