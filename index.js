@@ -10,7 +10,7 @@ function qa(selector, scope) {
 }
 
 function html(selector, html, x) {
-  const el = q(selector)
+  var el = q(selector)
   if (!el) return null
   if (typeof html == 'undefined') {
     return el.innerHTML
@@ -19,7 +19,7 @@ function html(selector, html, x) {
   } else if (x[0] == 'r') {
     return el.outerHTML = html
   }
-  const mode =
+  var mode =
     x[0] == 'b' && 'beforebegin' ||
     x[0] == 'a' && 'afterend' ||
     x[0] == 't' && 'afterbegin' ||
@@ -28,7 +28,7 @@ function html(selector, html, x) {
 }
 
 function text(selector, text) {
-  const el = q(selector)
+  var el = q(selector)
   if (!el) return null
   if (typeof text === 'undefined') {
     return el.textContent
@@ -37,12 +37,12 @@ function text(selector, text) {
 }
 
 function attr(selector, atts) {
-  const el = q(selector)
+  var el = q(selector)
   if (!el) return null
   if (typeof atts === 'string') {
     return el.getAttribute(atts)
   } else {
-    const el = q(selector)
+    var el = q(selector)
     for (var key in atts) {
       el.setAttribute(key, atts[key])
     }
