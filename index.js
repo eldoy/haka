@@ -9,7 +9,7 @@ function qa(selector, scope) {
   return (scope ? q(scope) : document).querySelectorAll(selector)
 }
 
-function h(selector, html, x) {
+function html(selector, html, x) {
   if (typeof html == 'undefined') {
     return q(selector).innerHTML
   } else if (!x) {
@@ -25,18 +25,18 @@ function h(selector, html, x) {
   return q(selector).insertAdjacentHTML(mode, html)
 }
 
-function t(selector, text) {
+function text(selector, text) {
   if (typeof text === 'undefined') {
     return q(selector).textContent
   }
   return q(selector).textContent = text
 }
 
-function m(tags, ...data) {
+function h(tags, ...data) {
   for (var html = '', i = 0; i < data.length; i++) {
     html += tags[i] + data[i]
   }
   return html += tags[i]
 }
 
-module.exports = { h, t, q, qa, m }
+module.exports = { q, qa, html, text, h }

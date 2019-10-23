@@ -21,31 +21,30 @@ qa('.els')
 qa('.els', '#app')
 
 // Insert text into element
-t('#el', 'Hello')
+text('#el', 'Hello')
 
 // Get text from element
-t('#el')
+text('#el')
 
 // Get HTML from element
-h('#el')
+html('#el')
 
 // Insert HTML into element
-h('#el', '<div>Hello</div>')
+html('#el', '<div>Hello</div>')
 
 // Insert HTML before element
-h('#el', '<div>Hello</div>', 'before')
+html('#el', '<div>Hello</div>', 'before')
 
 // Insert HTML after element
-h('#el', '<div>Hello</div>', 'after')
+html('#el', '<div>Hello</div>', 'after')
 
 // Insert HTML at top of element
-h('#el', '<div>Hello</div>', 'top')
+html('#el', '<div>Hello</div>', 'top')
 
 // Insert HTML at end of element
-h('#el', '<div>Hello</div>', 'end')
+html('#el', '<div>Hello</div>', 'end')
 
 // Works with HTML elements as well
-const btn = q('button')
-h(btn, '<span>Loading</span>')
+h(q('button'), '<span>Loading</span>')
 ```
 ISC licensed. Enjoy!

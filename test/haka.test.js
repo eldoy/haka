@@ -1,4 +1,4 @@
-const { h, t, q, qa, m } = require('../index.js')
+const { q, qa, html, text, h } = require('../index.js')
 
 describe('haka', () => {
   beforeEach(() => {
@@ -7,95 +7,95 @@ describe('haka', () => {
 
   it('should get the inner HTML', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    expect(h('#app')).toBe('Hello')
+    expect(html('#app')).toBe('Hello')
   })
 
   it('should insert into element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<span>Bye</span>')
+    html('#app', '<span>Bye</span>')
     expect(q('#app').innerHTML).toBe('<span>Bye</span>')
   })
 
   it('should insert blank into element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '')
+    html('#app', '')
     expect(q('#app').innerHTML).toBe('')
   })
 
   it('should insert before element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Before</div>', 'before')
+    html('#app', '<div>Before</div>', 'before')
     expect(document.body.innerHTML).toBe('<div>Before</div><div id="app">Hello</div>')
   })
 
   it('should insert before element short', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Before</div>', 'b')
+    html('#app', '<div>Before</div>', 'b')
     expect(document.body.innerHTML).toBe('<div>Before</div><div id="app">Hello</div>')
   })
 
   it('should insert after element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>After</div>', 'after')
+    html('#app', '<div>After</div>', 'after')
     expect(document.body.innerHTML).toBe('<div id=\"app\">Hello</div><div>After</div>')
   })
 
   it('should insert after element short', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>After</div>', 'a')
+    html('#app', '<div>After</div>', 'a')
     expect(document.body.innerHTML).toBe('<div id=\"app\">Hello</div><div>After</div>')
   })
 
   it('should insert at top of element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Top</div>', 'top')
+    html('#app', '<div>Top</div>', 'top')
     expect(document.body.innerHTML).toBe('<div id=\"app\"><div>Top</div>Hello</div>')
   })
 
   it('should insert at top of element short', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Top</div>', 'top')
+    html('#app', '<div>Top</div>', 'top')
     expect(document.body.innerHTML).toBe('<div id=\"app\"><div>Top</div>Hello</div>')
   })
 
   it('should insert at end of element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>End</div>', 'end')
+    html('#app', '<div>End</div>', 'end')
     expect(document.body.innerHTML).toBe('<div id=\"app\">Hello<div>End</div></div>')
   })
 
   it('should insert at end of element short', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>End</div>', 'e')
+    html('#app', '<div>End</div>', 'e')
     expect(document.body.innerHTML).toBe('<div id=\"app\">Hello<div>End</div></div>')
   })
 
   it('should replace the element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Replace</div>', 'replace')
+    html('#app', '<div>Replace</div>', 'replace')
     expect(document.body.innerHTML).toBe('<div>Replace</div>')
   })
 
   it('should replace the element short', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    h('#app', '<div>Replace</div>', 'r')
+    html('#app', '<div>Replace</div>', 'r')
     expect(document.body.innerHTML).toBe('<div>Replace</div>')
   })
 
   it('should get the text of an element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    expect(t('#app')).toBe('Hello')
+    expect(text('#app')).toBe('Hello')
   })
 
   it('should set the text of an element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    expect(t('#app', 'Bye')).toBe('Bye')
+    expect(text('#app', 'Bye')).toBe('Bye')
     expect(q('#app').textContent).toBe('Bye')
   })
 
   it('should set blank text of an element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
-    expect(t('#app', '')).toBe('')
+    expect(text('#app', '')).toBe('')
     expect(q('#app').textContent).toBe('')
   })
 
@@ -112,7 +112,7 @@ describe('haka', () => {
   })
 
   it('should create HTML', async () => {
-    document.body.innerHTML = m`<div id="app">Hello</div>`
+    document.body.innerHTML = h`<div id="app">Hello</div>`
     expect(document.body.innerHTML).toBe('<div id="app">Hello</div>')
   })
 
