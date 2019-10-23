@@ -20,6 +20,12 @@ qa('.els')
 // Get all elements from #app
 qa('.els', '#app')
 
+// Chaining, apply to one
+q('#el', el => el.innerHTML = '<span>Hello</span>')
+
+// Chaining, apply to all
+qa('li', el => el.innerHTML = '<span>Hello</span>')
+
 // Get css value
 css('#el', 'backgroundColor')
 

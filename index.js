@@ -1,12 +1,29 @@
-function q(selector, scope) {
+function q(selector, scope, fn) {
+  if (typeof scope == 'function') {
+    fn = scope
+    scope = undefined
+  }
   if (typeof selector == 'string') {
-    return (scope ? q(scope) || document : document).querySelector(selector)
+    selector = (scope ? q(scope) || document : document).querySelector(selector)
+  }
+  if (typeof fn == 'function') {
+    fn(selector, scope)
   }
   return selector
 }
 
-function qa(selector, scope) {
-  return (scope ? q(scope) || document : document).querySelectorAll(selector)
+function qa(selector, scope, fn) {
+  if (typeof scope == 'function') {
+    fn = scope
+    scope = undefined
+  }
+  const nodes = (scope ? q(scope) || document : document).querySelectorAll(selector)
+  if (typeof fn == 'function') {
+    for (var i = 0; i < nodes.length; i++) {
+      fn(nodes[i], scope)
+    }
+  }
+  return nodes
 }
 
 function css(selector, atts) {

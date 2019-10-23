@@ -55,6 +55,30 @@ describe('elements', () => {
       const app = document.getElementById('app')
       expect(qa('span', '#app')[0].textContent).toBe('Hello')
     })
+
+    it('should query with callback', async () => {
+      document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+      q('#app', el => {
+        expect(el.innerHTML).toBe('<span>Hello</span>')
+      })
+    })
+
+    it('should query with callback and scope', async () => {
+      document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+      q('span', '#app', el => {
+        el.textContent = 'Hello'
+      })
+      expect(q('span').textContent).toBe('Hello')
+    })
+
+    it('should query all with callback', async () => {
+      document.body.innerHTML = `<ul><li>Hello</li><li>Bye</li></div>`
+      qa('li', el => {
+        el.textContent = el.textContent.toLowerCase()
+      })
+      expect(qa('li')[0].textContent).toBe('hello')
+      expect(qa('li')[1].textContent).toBe('bye')
+    })
   })
 
   describe('css', () => {
