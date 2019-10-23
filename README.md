@@ -20,6 +20,18 @@ qa('.els')
 // Get all elements from #app
 qa('.els', '#app')
 
+// Get css value
+css('#el', 'backgroundColor')
+
+// Replace css values
+css('#el', 'background-color: yellow; color: red')
+
+// Remove all css values
+css('#el', '')
+
+// Merge css values
+css('#el', { backgroundColor: 'yellow', color: null })
+
 // Insert text into element
 text('#el', 'Hello')
 

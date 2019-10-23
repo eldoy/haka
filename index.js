@@ -9,21 +9,40 @@ function qa(selector, scope) {
   return (scope ? q(scope) || document : document).querySelectorAll(selector)
 }
 
+function css(selector, atts) {
+  var el = q(selector)
+  if (!el) return null
+  if (typeof atts == 'string') {
+    if (atts.indexOf(':') > -1) {
+      el.style.cssText = atts
+    } else {
+      return el.style[atts]
+    }
+  } else {
+    for (var key in atts) {
+      el.style[key] = atts[key]
+    }
+  }
+  return el
+}
+
 function html(selector, html, x) {
   var el = q(selector)
   if (!el) return null
   if (typeof html == 'undefined') {
     return el.innerHTML
   } else if (!x) {
-    return el.innerHTML = html
+    el.innerHTML = html
   } else if (x[0] == 'r') {
-    return el.outerHTML = html
+    el.outerHTML = html
+  } else {
+    el.insertAdjacentHTML(
+      x[0] == 'b' && 'beforebegin' ||
+      x[0] == 'a' && 'afterend' ||
+      x[0] == 't' && 'afterbegin' ||
+      x[0] == 'e' && 'beforeend', html)
   }
-  return el.insertAdjacentHTML(
-    x[0] == 'b' && 'beforebegin' ||
-    x[0] == 'a' && 'afterend' ||
-    x[0] == 't' && 'afterbegin' ||
-    x[0] == 'e' && 'beforeend', html)
+  return el
 }
 
 function text(selector, text) {
@@ -32,20 +51,25 @@ function text(selector, text) {
   if (typeof text == 'undefined') {
     return el.textContent
   }
-  return el.textContent = text
+  el.textContent = text
+  return el
 }
 
-function attr(selector, atts) {
+function attr(selector, atts, value) {
   var el = q(selector)
   if (!el) return null
   if (typeof atts == 'string') {
-    return el.getAttribute(atts)
+    if (typeof value == 'undefined') {
+      return el.getAttribute(atts)
+    } else {
+      el.setAttribute(atts, value)
+    }
   } else {
-    var el = q(selector)
     for (var key in atts) {
-      el.setAttribute(key, atts[key])
+      atts[key] == null ? el.removeAttribute(key) : el.setAttribute(key, atts[key])
     }
   }
+  return el
 }
 
 function cookie(key, val, time) {
@@ -75,22 +99,29 @@ function flash(selector, message, now) {
       timeout = setTimeout(function() { el.style.opacity = 0 }, 5000)
     }
   }
+  return el
 }
 
 function serialize(form) {
   var data = {}, o, x
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
-    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0)
+    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
       if (field.type == 'select-multiple') {
-        for (var j = 0, values = []; j < field.options.length; j++)
-          if ((o = field.options[j]).selected) values.push(o.value)
+        for (var j = 0, values = []; j < field.options.length; j++) {
+          if ((o = field.options[j]).selected) {
+            values.push(o.value)
+          }
+        }
         data[field.name] = values
       } else if (field.type == 'checkbox') {
-        if (field.checked) data[(x = field.name)] ? data[x].push(field.value) : data[x] = [field.value]
+        if (field.checked) {
+          data[(x = field.name)] ? data[x].push(field.value) : data[x] = [field.value]
+        }
       } else {
         data[field.name] = field.value
       }
+    }
   }
   return data
 }
@@ -102,4 +133,4 @@ function h(tags, ...data) {
   return html += tags[i]
 }
 
-module.exports = { q, qa, html, text, attr, cookie, flash, serialize, h }
+module.exports = { q, qa, css, html, text, attr, cookie, flash, serialize, h }
