@@ -78,7 +78,7 @@ function flash(selector, message, now) {
   }
 }
 
-function grab(e) {
+function serialize(e) {
 	var d = {}, o, x
 	for (var i = 0; i < e.elements.length; i++) {
     var f = e.elements[i]
@@ -103,4 +103,4 @@ function h(tags, ...data) {
   return html += tags[i]
 }
 
-module.exports = { q, qa, html, text, attr, cookie, flash, grab, h }
+module.exports = { q, qa, html, text, attr, cookie, flash, serialize, h }
