@@ -67,5 +67,15 @@ cookie('name', 'hello', 7)
 
 // Delete a cookie
 cookie('name', '', -1)
+
+// Serialize form
+var data = serialize(form)
+
+// Display flash message on next page load
+flash('.flash', 'hello')
+
+// Display flash message now
+flash('.flash', 'hello', true)
+
 ```
 ISC licensed. Enjoy!
