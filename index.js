@@ -17,7 +17,7 @@ function qa(selector, scope, fn) {
     fn = scope
     scope = undefined
   }
-  const nodes = (scope ? q(scope) || document : document).querySelectorAll(selector)
+  var nodes = (scope ? q(scope) || document : document).querySelectorAll(selector)
   if (typeof fn == 'function') {
     for (var i = 0; i < nodes.length; i++) {
       fn(nodes[i], scope)
