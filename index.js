@@ -1,39 +1,42 @@
-function q(s, f) {
-  return typeof s === 'string' ? (f ? q(f) : document).querySelector(s) : s
-}
-
-function qa(s, f) {
-  return (f ? q(f) : document).querySelectorAll(s)
-}
-
-function h(s, h, x) {
-  if (typeof h == 'undefined') {
-    return q(s).innerHTML
-  } else if (!x) {
-    return q(s).innerHTML = h
-  } else if (x[0] == 'r') {
-    return q(s).outerHTML = h
+function q(selector, scope) {
+  if (typeof selector === 'string') {
+    return (scope ? q(scope) : document).querySelector(selector)
   }
-  return q(s).insertAdjacentHTML(
+  return selector
+}
+
+function qa(selector, scope) {
+  return (scope ? q(scope) : document).querySelectorAll(selector)
+}
+
+function h(selector, html, x) {
+  if (typeof html == 'undefined') {
+    return q(selector).innerHTML
+  } else if (!x) {
+    return q(selector).innerHTML = html
+  } else if (x[0] == 'r') {
+    return q(selector).outerHTML = html
+  }
+  const mode =
     x[0] == 'b' && 'beforebegin' ||
     x[0] == 'a' && 'afterend' ||
     x[0] == 't' && 'afterbegin' ||
-    x[0] == 'e' && 'beforeend',
-  h)
+    x[0] == 'e' && 'beforeend'
+  return q(selector).insertAdjacentHTML(mode, html)
 }
 
-function t(s, t) {
-  if (typeof t === 'undefined') {
-    return q(s).textContent
+function t(selector, text) {
+  if (typeof text === 'undefined') {
+    return q(selector).textContent
   }
-  return q(s).textContent = t
+  return q(selector).textContent = text
 }
 
-function m(t, ...d) {
-  for (var h = '', i = 0; i < d.length; i++) {
-    h += t[i] + d[i]
+function m(tags, ...data) {
+  for (var html = '', i = 0; i < data.length; i++) {
+    html += tags[i] + data[i]
   }
-  return h += t[i]
+  return html += tags[i]
 }
 
 module.exports = { h, t, q, qa, m }
