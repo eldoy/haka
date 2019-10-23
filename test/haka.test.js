@@ -16,6 +16,12 @@ describe('haka', () => {
     expect(q('#app').innerHTML).toBe('<span>Bye</span>')
   })
 
+  it('should insert blank into element', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    h('#app', '')
+    expect(q('#app').innerHTML).toBe('')
+  })
+
   it('should insert before element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
     h('#app', '<div>Before</div>', 'before')
@@ -85,6 +91,12 @@ describe('haka', () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
     expect(t('#app', 'Bye')).toBe('Bye')
     expect(q('#app').textContent).toBe('Bye')
+  })
+
+  it('should set blank text of an element', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(t('#app', '')).toBe('')
+    expect(q('#app').textContent).toBe('')
   })
 
   it('should query an element', async () => {
