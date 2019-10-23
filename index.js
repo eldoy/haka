@@ -1,5 +1,5 @@
 function q(selector, scope) {
-  if (typeof selector === 'string') {
+  if (typeof selector == 'string') {
     return (scope ? q(scope) || document : document).querySelector(selector)
   }
   return selector
@@ -30,7 +30,7 @@ function html(selector, html, x) {
 function text(selector, text) {
   var el = q(selector)
   if (!el) return null
-  if (typeof text === 'undefined') {
+  if (typeof text == 'undefined') {
     return el.textContent
   }
   return el.textContent = text
@@ -39,7 +39,7 @@ function text(selector, text) {
 function attr(selector, atts) {
   var el = q(selector)
   if (!el) return null
-  if (typeof atts === 'string') {
+  if (typeof atts == 'string') {
     return el.getAttribute(atts)
   } else {
     var el = q(selector)
