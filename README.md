@@ -45,6 +45,15 @@ html('#el', '<div>Hello</div>', 'top')
 html('#el', '<div>Hello</div>', 'end')
 
 // Works with HTML elements as well
-h(q('button'), '<span>Loading</span>')
+html(q('button'), '<span>Loading</span>')
+
+// Get all attributes
+attr('#app')
+
+// Get specific attribute
+attr('#app', 'class')
+
+// Set attributes
+attr('#app', { class: 'hello', id: 'bye' })
 ```
 ISC licensed. Enjoy!

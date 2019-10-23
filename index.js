@@ -1,35 +1,52 @@
 function q(selector, scope) {
   if (typeof selector === 'string') {
-    return (scope ? q(scope) : document).querySelector(selector)
+    return (scope ? q(scope) || document : document).querySelector(selector)
   }
   return selector
 }
 
 function qa(selector, scope) {
-  return (scope ? q(scope) : document).querySelectorAll(selector)
+  return (scope ? q(scope) || document : document).querySelectorAll(selector)
 }
 
 function html(selector, html, x) {
+  const el = q(selector)
+  if (!el) return null
   if (typeof html == 'undefined') {
-    return q(selector).innerHTML
+    return el.innerHTML
   } else if (!x) {
-    return q(selector).innerHTML = html
+    return el.innerHTML = html
   } else if (x[0] == 'r') {
-    return q(selector).outerHTML = html
+    return el.outerHTML = html
   }
   const mode =
     x[0] == 'b' && 'beforebegin' ||
     x[0] == 'a' && 'afterend' ||
     x[0] == 't' && 'afterbegin' ||
     x[0] == 'e' && 'beforeend'
-  return q(selector).insertAdjacentHTML(mode, html)
+  return el.insertAdjacentHTML(mode, html)
 }
 
 function text(selector, text) {
+  const el = q(selector)
+  if (!el) return null
   if (typeof text === 'undefined') {
-    return q(selector).textContent
+    return el.textContent
   }
-  return q(selector).textContent = text
+  return el.textContent = text
+}
+
+function attr(selector, atts) {
+  const el = q(selector)
+  if (!el) return null
+  if (typeof atts === 'string') {
+    return el.getAttribute(atts)
+  } else {
+    const el = q(selector)
+    for (var key in atts) {
+      el.setAttribute(key, atts[key])
+    }
+  }
 }
 
 function h(tags, ...data) {
@@ -39,4 +56,4 @@ function h(tags, ...data) {
   return html += tags[i]
 }
 
-module.exports = { q, qa, html, text, h }
+module.exports = { q, qa, html, text, attr, h }

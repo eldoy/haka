@@ -1,4 +1,4 @@
-const { q, qa, html, text, h } = require('../index.js')
+const { q, qa, html, text, attr, h } = require('../index.js')
 
 describe('haka', () => {
   beforeEach(() => {
@@ -8,6 +8,11 @@ describe('haka', () => {
   it('should get the inner HTML', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
     expect(html('#app')).toBe('Hello')
+  })
+
+  it('should return null if not found', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(html('#hello')).toBeNull()
   })
 
   it('should insert into element', async () => {
@@ -87,6 +92,11 @@ describe('haka', () => {
     expect(text('#app')).toBe('Hello')
   })
 
+  it('should return null if not found', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(text('#hello')).toBeNull()
+  })
+
   it('should set the text of an element', async () => {
     document.body.innerHTML = `<div id="app">Hello</div>`
     expect(text('#app', 'Bye')).toBe('Bye')
@@ -104,11 +114,26 @@ describe('haka', () => {
     expect(q('#app').innerHTML).toBe('Hello')
   })
 
+  it('should return null if not found', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(q('#hello')).toBeNull()
+  })
+
+  it('should return null if not found with null scope', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(q('#hello', '#hello')).toBeNull()
+  })
+
   it('should query an element', async () => {
     document.body.innerHTML = `<ul><li>Hello</li><li>Hello</li></ul>`
     expect(qa('li').length).toBe(2)
     expect(qa('li')[0].innerHTML).toBe('Hello')
     expect(qa('li')[1].innerHTML).toBe('Hello')
+  })
+
+  it('should return null if not found with null scope', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(qa('#hello', '#hello').length).toBe(0)
   })
 
   it('should create HTML', async () => {
@@ -142,5 +167,21 @@ describe('haka', () => {
     document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
     const app = document.getElementById('app')
     expect(qa('span', '#app')[0].textContent).toBe('Hello')
+  })
+
+  it('should get element attributes value', async () => {
+    document.body.innerHTML = `<div id="app" class="hello"><span>Hello</span></div>`
+    expect(attr('#app', 'id')).toBe('app')
+  })
+
+  it('should set element attributes', async () => {
+    document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
+    attr('#app', { class: 'hello' })
+    expect(q('#app').getAttribute('class')).toBe('hello')
+  })
+
+  it('should return null if not found', async () => {
+    document.body.innerHTML = `<div id="app">Hello</div>`
+    expect(attr('#hello')).toBeNull()
   })
 })
