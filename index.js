@@ -19,12 +19,11 @@ function html(selector, html, x) {
   } else if (x[0] == 'r') {
     return el.outerHTML = html
   }
-  var mode =
+  return el.insertAdjacentHTML(
     x[0] == 'b' && 'beforebegin' ||
     x[0] == 'a' && 'afterend' ||
     x[0] == 't' && 'afterbegin' ||
-    x[0] == 'e' && 'beforeend'
-  return el.insertAdjacentHTML(mode, html)
+    x[0] == 'e' && 'beforeend', html)
 }
 
 function text(selector, text) {
@@ -78,22 +77,22 @@ function flash(selector, message, now) {
   }
 }
 
-function serialize(e) {
-	var d = {}, o, x
-	for (var i = 0; i < e.elements.length; i++) {
-    var f = e.elements[i]
-		if (f.name && !f.disabled && ['file', 'reset', 'submit', 'button'].indexOf(f.type) < 0)
-      if (f.type == 'select-multiple') {
-        for (var n = 0, v = []; n < f.options.length; n++)
-          if ((o = f.options[n]).selected) v.push(o.value)
-        d[f.name] = v
-      } else if (f.type == 'checkbox') {
-        if (f.checked) d[(x = f.name)] ? d[x].push(f.value) : d[x] = [f.value]
+function serialize(form) {
+	var data = {}, o, x
+	for (var i = 0; i < form.elements.length; i++) {
+    var field = form.elements[i]
+		if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0)
+      if (field.type == 'select-multiple') {
+        for (var j = 0, values = []; j < field.options.length; j++)
+          if ((o = field.options[j]).selected) values.push(o.value)
+        data[field.name] = values
+      } else if (field.type == 'checkbox') {
+        if (field.checked) data[(x = field.name)] ? data[x].push(field.value) : data[x] = [field.value]
       } else {
-        d[f.name] = f.value
+        data[field.name] = field.value
       }
 	}
-	return d
+	return data
 }
 
 function h(tags, ...data) {
