@@ -100,22 +100,18 @@ function cookie(key, val, time) {
   }
 }
 
-function flash(selector, message, now) {
-  var el = q(selector)
-  if (!el) return
-  if (typeof timeout != 'undefined') clearTimeout(timeout)
-  message = (message || cookie('flash') || '').trim()
-  if (!now) {
-    cookie('flash', message)
-  } else {
-    cookie('flash', '', -1)
-    if (message.length) {
-      text(el, message)
-      el.style.opacity = 1
-      scroll(0, 0)
-      timeout = setTimeout(function() { el.style.opacity = 0 }, 5000)
-    }
+function flash(message) {
+  var el = q('.flash')
+  if (!el) return null
+  if (typeof timeout != 'undefined') {
+    clearTimeout(timeout)
   }
+  message = (message || cookie('flash') || '').trim()
+  cookie('flash', '', -1)
+  scroll(0, 0)
+  text(el, message)
+  el.style.opacity = 1
+  timeout = setTimeout(function() { el.style.opacity = 0 }, 5000)
   return el
 }
 
