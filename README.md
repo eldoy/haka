@@ -127,9 +127,19 @@ var data = serialize(form)
 
 ### Flash messages
 Displays flash message notifications. Depends on the `cookie` function.
+
+The default class name for the container is `flash` and requires an initial opacity of 0. The message will automatically fade out after 5 seconds.
+```html
+<div class="flash">Messages will be displayed here</div>
+```
+
+Run the `flash` function to display the messages.
 ```javascript
 // Display flash message
 flash('hello')
+
+// With default options
+flash('hello', { el: '.flash', time: 5000, name: 'flash' })
 
 // Prepare flash message on next page load
 cookie('flash', 'hello')
