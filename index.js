@@ -100,18 +100,19 @@ function cookie(key, val, time) {
   }
 }
 
-function flash(message) {
-  var el = q('.flash')
+function flash(message, opt = {}) {
+  var el = opt.el || q('.flash'), time = opt.time || 5000, name = opt.name || 'flash'
+  if (typeof el == 'string') el = q(el)
   if (!el) return null
   if (typeof timeout != 'undefined') {
     clearTimeout(timeout)
   }
-  message = (message || cookie('flash') || '').trim()
-  cookie('flash', '', -1)
+  message = (message || cookie(name) || '').trim()
+  cookie(name, '', -1)
   scroll(0, 0)
-  text(el, message)
+  el.textContent = message
   el.style.opacity = 1
-  timeout = setTimeout(function() { el.style.opacity = 0 }, 5000)
+  timeout = setTimeout(function() { el.style.opacity = 0 }, time)
   return el
 }
 
