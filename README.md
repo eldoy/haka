@@ -1,13 +1,19 @@
 # HAKA
 Functional Javascript HTML and DOM manipulation toolkit.
 
+The whole library is only 2K minified.
+
 ### Install
 `npm i haka`
 
 ### Usage
-Use only the functions you need, only 'q' is required for most functions.
+Use only the functions you need, only `q` is required for most functions.
 ```javascript
-var { q, qa, css, html, text, attr, cookie, flash, serialize } = require('haka')
+// From NodeJS
+var { q, qa, html, text, css, attr, cookie, flash, serialize } = require('haka')
+
+// Include directly in your site
+<script src="/dist/haka-min.js"></script>
 ```
 
 ### Querying
@@ -30,22 +36,6 @@ q('#el', el => el.innerHTML = '<span>Hello</span>')
 
 // Chaining, apply to all
 qa('li', el => el.innerHTML = '<span>Hello</span>')
-```
-
-### CSS
-Add and remove CSS styles from elements.
-```javascript
-// Get css value
-css('#el', 'backgroundColor')
-
-// Replace css values
-css('#el', 'background-color: yellow; color: red')
-
-// Remove all css values
-css('#el', '')
-
-// Merge css values
-css('#el', { backgroundColor: 'yellow', color: null })
 ```
 
 ### Text content
@@ -81,6 +71,22 @@ html('#el', '<div>Hello</div>', 'end')
 
 // Works with HTML elements as well
 html(q('button'), '<span>Loading</span>')
+```
+
+### CSS
+Add and remove CSS styles from elements.
+```javascript
+// Get css value
+css('#el', 'backgroundColor')
+
+// Replace css values
+css('#el', 'background-color: yellow; color: red')
+
+// Remove all css values
+css('#el', '')
+
+// Merge css values
+css('#el', { backgroundColor: 'yellow', color: null })
 ```
 
 ### Attributes

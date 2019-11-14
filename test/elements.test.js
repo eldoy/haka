@@ -231,11 +231,4 @@ describe('elements', () => {
       expect(attr('#hello')).toBeNull()
     })
   })
-
-  describe('html', () => {
-    it('should create HTML', async () => {
-      document.body.innerHTML = h`<div id="app">Hello</div>`
-      expect(document.body.innerHTML).toBe('<div id="app">Hello</div>')
-    })
-  })
 })

@@ -100,7 +100,8 @@ function cookie(key, val, time) {
   }
 }
 
-function flash(message, opt = {}) {
+function flash(message, opt) {
+  if (!opt) opt = {}
   var el = opt.el || q('.flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (typeof el == 'string') el = q(el)
   if (!el) return null
@@ -140,11 +141,4 @@ function serialize(form) {
   return data
 }
 
-function h(tags, ...data) {
-  for (var html = '', i = 0; i < data.length; i++) {
-    html += tags[i] + data[i]
-  }
-  return html += tags[i]
-}
-
-module.exports = { q, qa, css, html, text, attr, cookie, flash, serialize, h }
+module.exports = { q, qa, css, html, text, attr, cookie, flash, serialize }
