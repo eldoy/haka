@@ -1,6 +1,6 @@
 {
   "name": "haka",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Functional Javascript HTML and DOM manipulation library",
   "main": "index.js",
   "scripts": {
@@ -14,10 +14,14 @@
   },
   "keywords": [
     "javascript",
-    "jquery alternative",
+    "jquery",
+    "alternative",
+    "ie",
+    "ie11",
+    "minimal",
+    "browser",
     "fast",
     "tiny",
-    "jquery",
     "dom",
     "html",
     "functional"

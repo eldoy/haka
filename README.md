@@ -1,7 +1,7 @@
 # HAKA
 Functional Javascript HTML and DOM manipulation toolkit.
 
-The whole library is only 2K minified.
+The whole library is only 2K minified. Works in all browsers, including IE.
 
 ### Install
 `npm i haka`
