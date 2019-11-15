@@ -1,13 +1,26 @@
 {
   "name": "haka",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Functional Javascript HTML and DOM manipulation library",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
     "build": "node scripts/build.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fugroup/haka.git"
+  },
+  "keywords": [
+    "javascript",
+    "jquery alternative",
+    "fast",
+    "tiny",
+    "jquery",
+    "dom",
+    "html",
+    "functional"
+  ],
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "ISC",
   "devDependencies": {
