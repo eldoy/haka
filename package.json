@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "node scripts/build.js"
+    "minify": "node scripts/minify.js",
+    "build": "rollup -c && npm run minify"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^24.9.0",
+    "rollup": "^1.27.0",
+    "rollup-plugin-uglify-es": "0.0.1",
     "uglify-js": "^3.6.9"
   },
   "dependencies": {}
