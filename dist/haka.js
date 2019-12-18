@@ -1,4 +1,4 @@
-const q = function(selector, scope, fn) {
+window.q = function(selector, scope, fn) {
   if (typeof scope == 'function') {
     fn = scope
     scope = undefined
@@ -12,7 +12,7 @@ const q = function(selector, scope, fn) {
   return selector
 }
 
-const qa = function(selector, scope, fn) {
+window.qa = function(selector, scope, fn) {
   if (typeof scope == 'function') {
     fn = scope
     scope = undefined
@@ -26,7 +26,7 @@ const qa = function(selector, scope, fn) {
   return nodes
 }
 
-const css = function(selector, atts) {
+window.css = function(selector, atts) {
   var el = q(selector)
   if (!el) return null
   if (typeof atts == 'string') {
@@ -43,7 +43,7 @@ const css = function(selector, atts) {
   return el
 }
 
-const html = function(selector, h, x) {
+window.html = function(selector, h, x) {
   var el = q(selector)
   if (!el) return null
   if (typeof h == 'undefined') {
@@ -62,7 +62,7 @@ const html = function(selector, h, x) {
   return el
 }
 
-const text = function(selector, t) {
+window.text = function(selector, t) {
   var el = q(selector)
   if (!el) return null
   if (typeof t == 'undefined') {
@@ -72,7 +72,7 @@ const text = function(selector, t) {
   return el
 }
 
-const attr = function(selector, atts, value) {
+window.attr = function(selector, atts, value) {
   var el = q(selector)
   if (!el) return null
   if (typeof atts == 'string') {
@@ -89,7 +89,7 @@ const attr = function(selector, atts, value) {
   return el
 }
 
-const time = function(date, format) {
+window.time = function(date, format) {
   if (!format) {
     format = 'dd/mm/yyyy'
   }
@@ -108,7 +108,7 @@ const time = function(date, format) {
   return format
 }
 
-const cookie = function(key, val, time) {
+window.cookie = function(key, val, time) {
   if (typeof val == 'undefined') {
     var val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
     return val ? decodeURIComponent(val[2]) : null
@@ -119,7 +119,7 @@ const cookie = function(key, val, time) {
   }
 }
 
-const flash = function(message, opt) {
+window.flash = function(message, opt) {
   if (!opt) opt = {}
   var el = opt.el || q('.flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (typeof el == 'string') el = q(el)
@@ -136,7 +136,7 @@ const flash = function(message, opt) {
   return el
 }
 
-const serialize = function(form) {
+window.serialize = function(form) {
   var data = {}, o, x
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
@@ -159,5 +159,3 @@ const serialize = function(form) {
   }
   return data
 }
-
-module.exports = { q, qa, css, html, text, attr, time, cookie, flash, serialize }
