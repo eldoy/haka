@@ -1,12 +1,12 @@
 {
   "name": "haka",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Functional Javascript HTML and DOM manipulation library",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
     "minify": "node scripts/minify.js",
-    "build": "rollup -c && npm run minify"
+    "build": "node scripts/build.js"
   },
   "repository": {
     "type": "git",
@@ -30,8 +30,6 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^24.9.0",
-    "rollup": "^1.27.13",
-    "rollup-plugin-uglify-es": "0.0.1",
     "uglify-js": "^3.7.2"
   },
   "dependencies": {}

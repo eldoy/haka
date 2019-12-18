@@ -2,14 +2,10 @@
 const fs = require('fs')
 const uglify = require('uglify-js')
 
-const code = fs.readFileSync('./lib/haka.js', 'utf-8')
-  .split('\n')
-  .filter(x => !/^module.exports/.test(x))
-  .join('\n')
-
-const result = uglify.minify(code)
-if (!fs.existsSync('./dist')) {
-  fs.mkdirSync('./dist')
+if (!fs.existsSync('./dist/haka.js')) {
+  console.log("Run 'npm run build' and try again")
+} else {
+  const code = fs.readFileSync('./dist/haka.js', 'utf-8')
+  const result = uglify.minify(code)
+  fs.writeFileSync('./dist/haka-min.js', result.code)
 }
-
-fs.writeFileSync('./dist/haka-min.js', result.code)
