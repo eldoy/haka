@@ -102,6 +102,18 @@ attr('#app', 'class')
 attr('#app', { class: 'hello', id: 'bye' })
 ```
 
+### Time format
+Formats date objects into date strings.
+```javascript
+var date = new Date()
+
+// Default format is dd/mm/yyyy
+time(date)
+
+// Custom format
+time(date, 'hh:MM:ss dd/mm-yy')
+```
+
 ### Cookies
 Sets, gets and deletes browser cookies.
 ```javascript
@@ -119,7 +131,7 @@ cookie('name', '', -1)
 ```
 
 ### Form serialization
-Collects values from form elements.
+Collects values from `<form>` elements.
 ```javascript
 // Serialize form
 var data = serialize(form)
