@@ -160,4 +160,4 @@ cookie('flash', 'hello')
 flash()
 ```
 
-ISC licensed. Enjoy!
+MIT licensed. Enjoy!
