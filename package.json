@@ -29,8 +29,8 @@
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.9.0",
-    "uglify-js": "^3.7.2"
+    "jest": "^25.1.0",
+    "uglify-js": "^3.7.6"
   },
   "dependencies": {}
 }
