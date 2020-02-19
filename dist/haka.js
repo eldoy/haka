@@ -108,6 +108,13 @@ window.time = function(date, format) {
   return format
 }
 
+window.params = function(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var matcher = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  var result = matcher.exec(location.search)
+  return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
+}
+
 window.cookie = function(key, val, time) {
   if (typeof val == 'undefined') {
     var val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
