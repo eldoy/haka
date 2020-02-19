@@ -8,7 +8,7 @@ The whole library is only 2K minified. Works in all browsers, including IE.
 
 ### Usage
 Use only the functions you need, only `q` is required for most functions.
-```javascript
+```js
 // From NodeJS
 var { q, qa, html, text, css, attr, time, cookie, flash, serialize } = require('haka')
 
@@ -18,7 +18,7 @@ var { q, qa, html, text, css, attr, time, cookie, flash, serialize } = require('
 
 ### Querying
 Haka uses `document.querySelector` and `document.querySelectorAll` behind the scenes.
-```javascript
+```js
 // Get first element from document
 q('#el')
 
@@ -40,7 +40,7 @@ qa('li', el => el.innerHTML = '<span>Hello</span>')
 
 ### Text content
 Sets and gets the text content of elements.
-```javascript
+```js
 // Insert text into element
 text('#el', 'Hello')
 
@@ -50,7 +50,7 @@ text('#el')
 
 ### HTML content
 Sets and gets the HTML content of elements.
-```javascript
+```js
 // Get HTML from element
 html('#el')
 
@@ -75,7 +75,7 @@ html(q('button'), '<span>Loading</span>')
 
 ### CSS
 Add and remove CSS styles from elements.
-```javascript
+```js
 // Get css value
 css('#el', 'backgroundColor')
 
@@ -91,7 +91,7 @@ css('#el', { backgroundColor: 'yellow', color: null })
 
 ### Attributes
 Sets and gets the attributes of elements.
-```javascript
+```js
 // Get all attributes
 attr('#app')
 
@@ -104,7 +104,7 @@ attr('#app', { class: 'hello', id: 'bye' })
 
 ### Time format
 Formats date objects into date strings.
-```javascript
+```js
 var date = new Date()
 
 // Default format is dd/mm/yyyy
@@ -114,9 +114,16 @@ time(date)
 time(date, 'hh:MM:ss dd/mm-yy')
 ```
 
+### Params
+Get URL query parameters.
+```js
+// Get the id parameter (?id=1)
+params('id')
+```
+
 ### Cookies
 Sets, gets and deletes browser cookies.
-```javascript
+```js
 // Get a cookie
 cookie('name')
 
@@ -132,7 +139,7 @@ cookie('name', '', -1)
 
 ### Form serialization
 Collects values from `<form>` elements.
-```javascript
+```js
 // Serialize form
 var data = serialize(form)
 ```
@@ -146,7 +153,7 @@ The default class name for the container is `flash` and requires an initial opac
 ```
 
 Run the `flash` function to display the messages.
-```javascript
+```js
 // Display flash message
 flash('hello')
 
