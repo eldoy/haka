@@ -108,6 +108,13 @@ const time = function(date, format) {
   return format
 }
 
+const params = function(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var matcher = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  var result = matcher.exec(location.search)
+  return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
+}
+
 const cookie = function(key, val, time) {
   if (typeof val == 'undefined') {
     var val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
@@ -160,4 +167,4 @@ const serialize = function(form) {
   return data
 }
 
-module.exports = { q, qa, css, html, text, attr, time, cookie, flash, serialize }
+module.exports = { q, qa, css, html, text, attr, time, params, cookie, flash, serialize }
