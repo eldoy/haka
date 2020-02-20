@@ -114,7 +114,7 @@ time(date)
 time(date, 'hh:MM:ss dd/mm-yy')
 ```
 
-### Params
+### Query params
 Get URL query parameters.
 ```js
 // Get the id parameter (?id=1)
