@@ -8,6 +8,9 @@ describe('serialize', () => {
         <option value="1" selected></option>
         <option value="2"></option>
       </select>
+      <input type="radio" value="a" name="radio">
+      <input type="radio" value="b" name="radio" checked>
+      <input type="radio" value="c" name="radio">
       <input type="checkbox" value="1" name="check" checked>
       <input type="checkbox" value="2" name="check">
     </form>`
@@ -15,5 +18,6 @@ describe('serialize', () => {
     expect(data.hello).toBe('bye')
     expect(data.select).toEqual(['1'])
     expect(data.check).toEqual(['1'])
+    expect(data.radio).toEqual('b')
   })
 })

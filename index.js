@@ -159,7 +159,7 @@ const serialize = function(form) {
         if (field.checked) {
           data[(x = field.name)] ? data[x].push(field.value) : data[x] = [field.value]
         }
-      } else {
+      } else if (field.type != 'radio' || field.checked) {
         data[field.name] = field.value
       }
     }
