@@ -4,6 +4,7 @@ describe('serialize', () => {
   it('should serialize form data', async () => {
     document.body.innerHTML = /* html */`<form>
       <input name="hello" value="bye">
+      <input type="number" name="amount" value="5">
       <select multiple name="select">
         <option value="1" selected></option>
         <option value="2"></option>
@@ -16,6 +17,7 @@ describe('serialize', () => {
     </form>`
     const data = serialize(document.querySelector('form'))
     expect(data.hello).toBe('bye')
+    expect(data.amount).toEqual(5)
     expect(data.select).toEqual(['1'])
     expect(data.check).toEqual(['1'])
     expect(data.radio).toEqual('b')
