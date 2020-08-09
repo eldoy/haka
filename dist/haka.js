@@ -157,10 +157,14 @@ window.serialize = function(form) {
         data[field.name] = values
       } else if (field.type == 'checkbox') {
         if (field.checked) {
-          data[(x = field.name)] ? data[x].push(field.value) : data[x] = [field.value]
+          data[(x = field.name)]
+            ? data[x].push(field.value)
+            : data[x] = [field.value]
         }
-      } else {
-        data[field.name] = field.value
+      } else if (field.type != 'radio' || field.checked) {
+        data[field.name] = field.type == 'number'
+          ? parseFloat(field.value)
+          : field.value
       }
     }
   }
