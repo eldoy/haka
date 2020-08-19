@@ -24,6 +24,7 @@ describe('store', () => {
     expect(store('name')).toBe(1)
     result = store('name', '')
     expect(result).toBe('')
+    expect(store('name')).toBe('')
   })
 
   it('should set and get stores for objects', () => {
