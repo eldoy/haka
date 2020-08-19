@@ -149,18 +149,17 @@ const store = function(key, val) {
 
 const flash = function(message, opt) {
   if (!opt) opt = {}
-  var el = opt.el || q('.flash'), time = opt.time || 5000, name = opt.name || 'flash'
-  if (typeof el == 'string') el = q(el)
+  var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (!el) return null
-  if (typeof timeout != 'undefined') {
-    clearTimeout(timeout)
+  if (typeof window.timeout != 'undefined') {
+    clearTimeout(window.timeout)
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, '', -1)
   scroll(0, 0)
   el.textContent = message
   el.style.opacity = 1
-  timeout = setTimeout(function() { el.style.opacity = 0 }, time)
+  window.timeout = setTimeout(function() { el.style.opacity = 0 }, time)
   return el
 }
 

@@ -12,11 +12,11 @@ describe('flash', () => {
   })
 
   it('should show flash now', async () => {
-    document.body.innerHTML = '<div class="flash"></div>'
+    document.body.innerHTML = '<div id="flash"></div>'
     flash('Hello', { time: 10 })
     expect(cookie('flash')).toBeNull()
-    expect(document.querySelector('.flash').textContent).toBe('Hello')
+    expect(document.querySelector('#flash').textContent).toBe('Hello')
     await new Promise(r => setTimeout(r, 11))
-    expect(document.querySelector('.flash').style.opacity).toBe('0')
+    expect(document.querySelector('#flash').style.opacity).toBe('0')
   })
 })
