@@ -8,6 +8,8 @@ describe('cookie', () => {
   it('should set and get cookies', () => {
     cookie('name', 'hello')
     expect(cookie('name')).toBe('hello')
+    cookie('next', 'bye')
+    expect(cookie('next')).toBe('bye')
   })
 
   it('should delete cookies', () => {

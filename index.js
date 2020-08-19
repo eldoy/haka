@@ -122,7 +122,7 @@ const cookie = function(key, val, time) {
   } else {
     var date = new Date
     date.setTime(date.getTime() + 864e5 * (time || 30))
-    document.cookie = key + '=' + encodeURIComponent(val) + ';path=/;expires=' + date.toUTCString()
+    document.cookie = key + '=' + encodeURIComponent(val) + ';path=/;expires=' + date.toUTCString() + ';samesite=lax'
   }
 }
 
