@@ -11,7 +11,7 @@ describe('flash', () => {
     expect(flash('hello')).toBeNull()
   })
 
-  it('should show flash now', () => {
+  it('should show flash now', async () => {
     document.body.innerHTML = '<div class="flash"></div>'
     flash('Hello', { time: 10 })
     expect(cookie('flash')).toBeNull()

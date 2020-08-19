@@ -1,5 +1,6 @@
 const { time } = require('../index.js')
-let d = new Date('04 Dec 1995 00:12:00')
+var ds = '04 Dec 1995 00:12:00'
+let d = new Date(ds)
 
 describe('time', () => {
   it('should format a date', () => {
