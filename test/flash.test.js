@@ -6,12 +6,12 @@ describe('flash', () => {
     cookie('flash', '', -1)
   })
 
-  it('should not show flash if it does not exist', async () => {
+  it('should not show flash if it does not exist', () => {
     document.body.innerHTML = '<div></div>'
     expect(flash('hello')).toBeNull()
   })
 
-  it('should show flash now', async () => {
+  it('should show flash now', () => {
     document.body.innerHTML = '<div class="flash"></div>'
     flash('Hello', { time: 10 })
     expect(cookie('flash')).toBeNull()

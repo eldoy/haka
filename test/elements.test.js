@@ -6,64 +6,64 @@ describe('elements', () => {
   })
 
   describe('query', () => {
-    it('should query an element', async () => {
+    it('should query an element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(q('#app').innerHTML).toBe('Hello')
     })
 
-    it('should return null if not found', async () => {
+    it('should return null if not found', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(q('#hello')).toBeNull()
     })
 
-    it('should query an element', async () => {
+    it('should query an element', () => {
       document.body.innerHTML = `<ul><li>Hello</li><li>Hello</li></ul>`
       expect(qa('li').length).toBe(2)
       expect(qa('li')[0].innerHTML).toBe('Hello')
       expect(qa('li')[1].innerHTML).toBe('Hello')
     })
 
-    it('should return null if not found with null scope', async () => {
+    it('should return null if not found with null scope', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(qa('#hello', '#hello').length).toBe(0)
     })
 
-    it('should query with HTMLElements', async () => {
+    it('should query with HTMLElements', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       let app = document.querySelector('#app')
       expect(q(app).innerHTML).toBe('Hello')
     })
 
-    it('should query from element as string', async () => {
+    it('should query from element as string', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       expect(q('span', '#app').textContent).toBe('Hello')
     })
 
-    it('should query from element as element', async () => {
+    it('should query from element as element', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       const app = document.getElementById('app')
       expect(q('span', app).textContent).toBe('Hello')
     })
 
-    it('should query all from element as string', async () => {
+    it('should query all from element as string', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       expect(qa('span', '#app')[0].textContent).toBe('Hello')
     })
 
-    it('should query all from element as string', async () => {
+    it('should query all from element as string', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       const app = document.getElementById('app')
       expect(qa('span', '#app')[0].textContent).toBe('Hello')
     })
 
-    it('should query with callback', async () => {
+    it('should query with callback', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       q('#app', el => {
         expect(el.innerHTML).toBe('<span>Hello</span>')
       })
     })
 
-    it('should query with callback and scope', async () => {
+    it('should query with callback and scope', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       q('span', '#app', el => {
         el.textContent = 'Hello'
@@ -71,7 +71,7 @@ describe('elements', () => {
       expect(q('span').textContent).toBe('Hello')
     })
 
-    it('should query all with callback', async () => {
+    it('should query all with callback', () => {
       document.body.innerHTML = `<ul><li>Hello</li><li>Bye</li></div>`
       qa('li', el => {
         el.textContent = el.textContent.toLowerCase()
@@ -82,102 +82,102 @@ describe('elements', () => {
   })
 
   describe('css', () => {
-    it('should replace styles', async () => {
+    it('should replace styles', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       css('#app', 'background-color: yellow;')
       expect(q('#app').style.backgroundColor).toBe('yellow')
     })
 
-    it('should set styles', async () => {
+    it('should set styles', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       css('#app', { backgroundColor: 'yellow' })
       expect(q('#app').style.backgroundColor).toBe('yellow')
     })
 
-    it('should get styles', async () => {
+    it('should get styles', () => {
       document.body.innerHTML = `<div id="app" style="background-color:yellow">Hello</div>`
       expect(css('#app', 'backgroundColor')).toBe('yellow')
     })
   })
 
   describe('html', () => {
-    it('should get the inner HTML', async () => {
+    it('should get the inner HTML', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(html('#app')).toBe('Hello')
     })
 
-    it('should return null if not found', async () => {
+    it('should return null if not found', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(html('#hello')).toBeNull()
     })
 
-    it('should insert into element', async () => {
+    it('should insert into element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<span>Bye</span>')
       expect(q('#app').innerHTML).toBe('<span>Bye</span>')
     })
 
-    it('should insert blank into element', async () => {
+    it('should insert blank into element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '')
       expect(q('#app').innerHTML).toBe('')
     })
 
-    it('should insert before element', async () => {
+    it('should insert before element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Before</div>', 'before')
       expect(document.body.innerHTML).toBe('<div>Before</div><div id="app">Hello</div>')
     })
 
-    it('should insert before element short', async () => {
+    it('should insert before element short', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Before</div>', 'b')
       expect(document.body.innerHTML).toBe('<div>Before</div><div id="app">Hello</div>')
     })
 
-    it('should insert after element', async () => {
+    it('should insert after element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>After</div>', 'after')
       expect(document.body.innerHTML).toBe('<div id=\"app\">Hello</div><div>After</div>')
     })
 
-    it('should insert after element short', async () => {
+    it('should insert after element short', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>After</div>', 'a')
       expect(document.body.innerHTML).toBe('<div id=\"app\">Hello</div><div>After</div>')
     })
 
-    it('should insert at top of element', async () => {
+    it('should insert at top of element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Top</div>', 'top')
       expect(document.body.innerHTML).toBe('<div id=\"app\"><div>Top</div>Hello</div>')
     })
 
-    it('should insert at top of element short', async () => {
+    it('should insert at top of element short', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Top</div>', 'top')
       expect(document.body.innerHTML).toBe('<div id=\"app\"><div>Top</div>Hello</div>')
     })
 
-    it('should insert at end of element', async () => {
+    it('should insert at end of element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>End</div>', 'end')
       expect(document.body.innerHTML).toBe('<div id=\"app\">Hello<div>End</div></div>')
     })
 
-    it('should insert at end of element short', async () => {
+    it('should insert at end of element short', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>End</div>', 'e')
       expect(document.body.innerHTML).toBe('<div id=\"app\">Hello<div>End</div></div>')
     })
 
-    it('should replace the element', async () => {
+    it('should replace the element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Replace</div>', 'replace')
       expect(document.body.innerHTML).toBe('<div>Replace</div>')
     })
 
-    it('should replace the element short', async () => {
+    it('should replace the element short', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       html('#app', '<div>Replace</div>', 'r')
       expect(document.body.innerHTML).toBe('<div>Replace</div>')
@@ -185,23 +185,23 @@ describe('elements', () => {
   })
 
   describe('text', () => {
-    it('should get the text of an element', async () => {
+    it('should get the text of an element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(text('#app')).toBe('Hello')
     })
 
-    it('should return null if not found', async () => {
+    it('should return null if not found', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(text('#hello')).toBeNull()
     })
 
-    it('should set the text of an element', async () => {
+    it('should set the text of an element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       text('#app', 'Bye')
       expect(q('#app').textContent).toBe('Bye')
     })
 
-    it('should set blank text of an element', async () => {
+    it('should set blank text of an element', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       text('#app', '')
       expect(q('#app').textContent).toBe('')
@@ -209,24 +209,24 @@ describe('elements', () => {
   })
 
   describe('attr', () => {
-    it('should get element attributes value', async () => {
+    it('should get element attributes value', () => {
       document.body.innerHTML = `<div id="app" class="hello"><span>Hello</span></div>`
       expect(attr('#app', 'id')).toBe('app')
     })
 
-    it('should set element attributes', async () => {
+    it('should set element attributes', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       attr('#app', { class: 'hello' })
       expect(q('#app').getAttribute('class')).toBe('hello')
     })
 
-    it('should remove element attributes', async () => {
+    it('should remove element attributes', () => {
       document.body.innerHTML = `<div id="app"><span>Hello</span></div>`
       attr('#app', { id: null })
       expect(q('div').outerHTML).toBe('<div><span>Hello</span></div>')
     })
 
-    it('should return null if not found', async () => {
+    it('should return null if not found', () => {
       document.body.innerHTML = `<div id="app">Hello</div>`
       expect(attr('#hello')).toBeNull()
     })

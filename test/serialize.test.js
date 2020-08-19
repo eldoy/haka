@@ -1,7 +1,7 @@
 const { serialize } = require('../index.js')
 
 describe('serialize', () => {
-  it('should serialize form data', async () => {
+  it('should serialize form data', () => {
     document.body.innerHTML = /* html */`<form>
       <input name="hello" value="bye">
       <input type="number" name="amount" value="5">

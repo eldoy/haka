@@ -5,12 +5,12 @@ describe('cookie', () => {
     cookie('name', '', -1)
   })
 
-  it('should set and get cookies', async () => {
+  it('should set and get cookies', () => {
     cookie('name', 'hello')
     expect(cookie('name')).toBe('hello')
   })
 
-  it('should delete cookies', async () => {
+  it('should delete cookies', () => {
     cookie('name', 'hello')
     expect(cookie('name')).toBe('hello')
     cookie('name', '', -1)

@@ -137,6 +137,22 @@ cookie('name', 'hello', 7)
 cookie('name', '', -1)
 ```
 
+### Store
+Sets, gets and deletes sessionStorage values.
+```js
+// Get a store value
+store('name')
+
+// Set a store value
+store('name', 'hello')
+
+// Delete a store value, returns the previous value if any
+store('name', null)
+
+// Clear store, delete all values
+store()
+```
+
 ### Form serialization
 Collects values from `<form>` elements.
 ```js

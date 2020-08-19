@@ -126,6 +126,27 @@ const cookie = function(key, val, time) {
   }
 }
 
+const store = function(key, val) {
+  function get() {
+    var item = sessionStorage.getItem(key)
+    if (item != null) {
+      return JSON.parse(item)
+    }
+    return
+  }
+  if (!key) return sessionStorage.clear()
+  if (val === null) {
+    var item = get()
+    sessionStorage.removeItem(key)
+    return item
+  } else if (val != null) {
+    sessionStorage.setItem(key, JSON.stringify(val))
+    return val
+  } else {
+    return get()
+  }
+}
+
 const flash = function(message, opt) {
   if (!opt) opt = {}
   var el = opt.el || q('.flash'), time = opt.time || 5000, name = opt.name || 'flash'
@@ -171,4 +192,4 @@ const serialize = function(form) {
   return data
 }
 
-module.exports = { q, qa, css, html, text, attr, time, params, cookie, flash, serialize }
+module.exports = { q, qa, css, html, text, attr, time, params, cookie, store, flash, serialize }
