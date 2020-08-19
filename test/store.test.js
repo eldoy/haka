@@ -27,13 +27,15 @@ describe('store', () => {
     expect(store('name')).toBe('')
   })
 
-  it('should set and get stores for objects', () => {
+  it('should set and get values for objects', () => {
     let result = store('name', { hello: 'master' })
     expect(result).toEqual({ hello: 'master' })
-    expect(result).toEqual({ hello: 'master' })
+    expect(store('name')).toEqual({ hello: 'master' })
     result = store('name', [1, 2, 'bye'])
     expect(result).toEqual([1, 2, 'bye'])
-    expect(result).toEqual([1, 2, 'bye'])
+    expect(store('name')).toEqual([1, 2, 'bye'])
+    store('name', { name: '' })
+    expect(store('name')).toEqual({ name: '' })
   })
 
   it('should delete store values', () => {
