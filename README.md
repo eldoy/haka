@@ -176,6 +176,7 @@ Collects values from `<form>` elements.
 // Serialize form
 var data = serialize(form)
 ```
+The values will not be included if the input fields are empty.
 
 ### Flash messages
 Displays flash message notifications. Depends on the `cookie` function.

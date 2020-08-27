@@ -169,6 +169,36 @@ const store = function(key, val) {
   }
 }
 
+const serialize = function(form) {
+  var data = {}, o, x
+  for (var i = 0; i < form.elements.length; i++) {
+    var field = form.elements[i]
+    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
+      if (field.type == 'select-multiple') {
+        for (var j = 0, values = []; j < field.options.length; j++) {
+          if ((o = field.options[j]).selected) {
+            values.push(o.value)
+          }
+        }
+        if (values.length) {
+          data[field.name] = values
+        }
+      } else if (field.type == 'checkbox') {
+        if (field.checked) {
+          data[(x = field.name)]
+            ? data[x].push(field.value)
+            : data[x] = [field.value]
+        }
+      } else if (field.value != '' && field.type != 'radio' || field.checked) {
+        data[field.name] = field.type == 'number'
+          ? parseFloat(field.value)
+          : field.value
+      }
+    }
+  }
+  return data
+}
+
 const flash = function(message, opt) {
   if (!opt) opt = {}
   var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
@@ -185,32 +215,4 @@ const flash = function(message, opt) {
   return el
 }
 
-const serialize = function(form) {
-  var data = {}, o, x
-  for (var i = 0; i < form.elements.length; i++) {
-    var field = form.elements[i]
-    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
-      if (field.type == 'select-multiple') {
-        for (var j = 0, values = []; j < field.options.length; j++) {
-          if ((o = field.options[j]).selected) {
-            values.push(o.value)
-          }
-        }
-        data[field.name] = values
-      } else if (field.type == 'checkbox') {
-        if (field.checked) {
-          data[(x = field.name)]
-            ? data[x].push(field.value)
-            : data[x] = [field.value]
-        }
-      } else if (field.type != 'radio' || field.checked) {
-        data[field.name] = field.type == 'number'
-          ? parseFloat(field.value)
-          : field.value
-      }
-    }
-  }
-  return data
-}
-
-module.exports = { q, qa, esc, raw, css, html, text, attr, time, params, cookie, store, flash, serialize }
+module.exports = { q, qa, esc, raw, css, html, text, attr, time, params, cookie, store, serialize, flash }

@@ -1,25 +1,93 @@
 const { serialize } = require('../index.js')
 
+function form(html) {
+  document.body.innerHTML = `<form>${html}</form>`
+}
+
+function data() {
+  return serialize(document.querySelector('form'))
+}
+
 describe('serialize', () => {
-  it('should serialize form data', () => {
-    document.body.innerHTML = /* html */`<form>
-      <input name="hello" value="bye">
-      <input type="number" name="amount" value="5">
-      <select multiple name="select">
-        <option value="1" selected></option>
-        <option value="2"></option>
-      </select>
-      <input type="radio" value="a" name="radio">
+  it('should get values from text inputs', () => {
+    form(`<input name="hello" value="bye">`)
+    expect(data().hello).toBe('bye')
+  })
+
+  it('should not get values from empty text inputs', () => {
+    form(`<input name="empty">`)
+    expect(data().empty).toBeUndefined()
+  })
+
+  it('should not get values from empty number inputs', () => {
+    form(`<input type="number" name="blank" value="">`)
+    expect(data().blank).toBeUndefined()
+  })
+
+  it('should get values from number inputs', () => {
+    form(`<input type="number" name="amount" value="5">`)
+    expect(data().amount).toEqual(5)
+  })
+
+  it('should get values from zero number input', async () => {
+    form(`<input type="number" name="amount" value="0">`)
+    expect(data().amount).toEqual(0)
+  })
+
+  it('should get values from multiple selects', () => {
+    form(`<select multiple name="select">
+      <option value="1" selected></option>
+      <option value="2"></option>
+    </select>`)
+    expect(data().select).toEqual(['1'])
+  })
+
+  it('should not get values from empty multiple select', async () => {
+    form(`<select multiple name="select_empty">
+      <option value=""></option>
+      <option></option>
+    </select>`)
+    expect(data().select_empty).toBeUndefined()
+  })
+
+  it('should get values from single select', async () => {
+    form(`<select name="select_single">
+      <option value="1" selected></option>
+      <option value="2"></option>
+    </select>`)
+    expect(data().select_single).toBe('1')
+  })
+
+  it('should not get values from empty single select', async () => {
+    form(`<select name="select_single_empty">
+      <option></option>
+      <option value=""></option>
+    </select>`)
+    expect(data().select_single_empty).toBeUndefined()
+  })
+
+  it('should get values from radio buttons', async () => {
+    form(`<input type="radio" value="a" name="radio">
       <input type="radio" value="b" name="radio" checked>
-      <input type="radio" value="c" name="radio">
-      <input type="checkbox" value="1" name="check" checked>
-      <input type="checkbox" value="2" name="check">
-    </form>`
-    const data = serialize(document.querySelector('form'))
-    expect(data.hello).toBe('bye')
-    expect(data.amount).toEqual(5)
-    expect(data.select).toEqual(['1'])
-    expect(data.check).toEqual(['1'])
-    expect(data.radio).toEqual('b')
+      <input type="radio" value="c" name="radio">`)
+    expect(data().radio).toEqual('b')
+  })
+
+  it('should not get values from empty radio buttons', async () => {
+    form(`<input type="radio" name="radio_empty">
+      <input type="radio" value="" name="radio_empty">`)
+    expect(data().radio_empty).toBeUndefined()
+  })
+
+  it('should get values from checkboxes', async () => {
+    form(`<input type="checkbox" value="1" name="check" checked>
+      <input type="checkbox" value="2" name="check">`)
+    expect(data().check).toEqual(['1'])
+  })
+
+  it('should not get values from empty checkboxes', async () => {
+    form(`<input type="checkbox" name="check_empty">
+      <input type="checkbox" value="" name="check_empty">`)
+    expect(data().check_empty).toBeUndefined()
   })
 })
