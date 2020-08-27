@@ -10,7 +10,7 @@ The whole library is only 2K minified. Works in all browsers, including IE.
 Use only the functions you need, only `q` is required for most functions.
 ```js
 // From NodeJS
-var { q, qa, html, text, css, attr, time, cookie, flash, serialize } = require('haka')
+var { q, qa, esc, raw, html, text, css, attr, time, cookie, flash, serialize } = require('haka')
 
 // Include directly in your site
 <script src="/dist/haka-min.js"></script>
@@ -36,6 +36,20 @@ q('#el', el => el.innerHTML = '<span>Hello</span>')
 
 // Chaining, apply to all
 qa('li', el => el.innerHTML = '<span>Hello</span>')
+```
+
+### Escape string
+Escapes string making it safe.
+```js
+// Outputs: &lt;div&gt;hello&lt;/div&gt;
+esc('<div>Hello</div>')
+```
+
+### Unescape string
+Unsescapes an escaped string.
+```js
+// Outputs: <div>Hello</div>
+raw('&lt;div&gt;hello&lt;/div&gt;')
 ```
 
 ### Text content
@@ -131,10 +145,13 @@ cookie('name')
 cookie('name', 'hello')
 
 // Set a cookie with expiry in days
-cookie('name', 'hello', 7)
+cookie('name', 'hello', { days: 7 })
+
+// Set a cookie with httpOnly and secure options
+cookie('name', 'hello', { httpOnly: 1, secure: 1 })
 
 // Delete a cookie
-cookie('name', '', -1)
+cookie('name', null)
 ```
 
 ### Store
