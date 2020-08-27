@@ -29,7 +29,7 @@ describe('serialize', () => {
     expect(data().amount).toEqual(5)
   })
 
-  it('should get values from zero number input', async () => {
+  it('should get values from zero number input', () => {
     form(`<input type="number" name="amount" value="0">`)
     expect(data().amount).toEqual(0)
   })
@@ -42,7 +42,7 @@ describe('serialize', () => {
     expect(data().select).toEqual(['1'])
   })
 
-  it('should not get values from empty multiple select', async () => {
+  it('should not get values from empty multiple select', () => {
     form(`<select multiple name="select_empty">
       <option value=""></option>
       <option></option>
@@ -50,7 +50,7 @@ describe('serialize', () => {
     expect(data().select_empty).toBeUndefined()
   })
 
-  it('should get values from single select', async () => {
+  it('should get values from single select', () => {
     form(`<select name="select_single">
       <option value="1" selected></option>
       <option value="2"></option>
@@ -58,7 +58,7 @@ describe('serialize', () => {
     expect(data().select_single).toBe('1')
   })
 
-  it('should not get values from empty single select', async () => {
+  it('should not get values from empty single select', () => {
     form(`<select name="select_single_empty">
       <option></option>
       <option value=""></option>
@@ -66,26 +66,26 @@ describe('serialize', () => {
     expect(data().select_single_empty).toBeUndefined()
   })
 
-  it('should get values from radio buttons', async () => {
+  it('should get values from radio buttons', () => {
     form(`<input type="radio" value="a" name="radio">
       <input type="radio" value="b" name="radio" checked>
       <input type="radio" value="c" name="radio">`)
     expect(data().radio).toEqual('b')
   })
 
-  it('should not get values from empty radio buttons', async () => {
+  it('should not get values from empty radio buttons', () => {
     form(`<input type="radio" name="radio_empty">
       <input type="radio" value="" name="radio_empty">`)
     expect(data().radio_empty).toBeUndefined()
   })
 
-  it('should get values from checkboxes', async () => {
+  it('should get values from checkboxes', () => {
     form(`<input type="checkbox" value="1" name="check" checked>
       <input type="checkbox" value="2" name="check">`)
     expect(data().check).toEqual(['1'])
   })
 
-  it('should not get values from empty checkboxes', async () => {
+  it('should not get values from empty checkboxes', () => {
     form(`<input type="checkbox" name="check_empty">
       <input type="checkbox" value="" name="check_empty">`)
     expect(data().check_empty).toBeUndefined()
