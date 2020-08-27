@@ -169,6 +169,36 @@ window.store = function(key, val) {
   }
 }
 
+window.serialize = function(form) {
+  var data = {}, o, x
+  for (var i = 0; i < form.elements.length; i++) {
+    var field = form.elements[i]
+    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
+      if (field.type == 'select-multiple') {
+        for (var j = 0, values = []; j < field.options.length; j++) {
+          if ((o = field.options[j]).selected) {
+            values.push(o.value)
+          }
+        }
+        if (values.length) {
+          data[field.name] = values
+        }
+      } else if (field.type == 'checkbox') {
+        if (field.checked) {
+          data[(x = field.name)]
+            ? data[x].push(field.value)
+            : data[x] = [field.value]
+        }
+      } else if (field.value != '' && field.type != 'radio' || field.checked) {
+        data[field.name] = field.type == 'number'
+          ? parseFloat(field.value)
+          : field.value
+      }
+    }
+  }
+  return data
+}
+
 window.flash = function(message, opt) {
   if (!opt) opt = {}
   var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
@@ -183,32 +213,4 @@ window.flash = function(message, opt) {
   el.style.opacity = 1
   if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
   return el
-}
-
-window.serialize = function(form) {
-  var data = {}, o, x
-  for (var i = 0; i < form.elements.length; i++) {
-    var field = form.elements[i]
-    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
-      if (field.type == 'select-multiple') {
-        for (var j = 0, values = []; j < field.options.length; j++) {
-          if ((o = field.options[j]).selected) {
-            values.push(o.value)
-          }
-        }
-        data[field.name] = values
-      } else if (field.type == 'checkbox') {
-        if (field.checked) {
-          data[(x = field.name)]
-            ? data[x].push(field.value)
-            : data[x] = [field.value]
-        }
-      } else if (field.type != 'radio' || field.checked) {
-        data[field.name] = field.type == 'number'
-          ? parseFloat(field.value)
-          : field.value
-      }
-    }
-  }
-  return data
 }
