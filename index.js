@@ -26,6 +26,18 @@ const qa = function(selector, scope, fn) {
   return nodes
 }
 
+const esc = function(str) {
+  var el = document.createElement('p')
+  el.textContent = str
+  return el.innerHTML
+}
+
+const raw = function(str) {
+  var el = document.createElement('p')
+  el.innerHTML = str
+  return el.textContent
+}
+
 const css = function(selector, atts) {
   var el = q(selector)
   if (!el) return null
@@ -191,4 +203,4 @@ const serialize = function(form) {
   return data
 }
 
-module.exports = { q, qa, css, html, text, attr, time, params, cookie, store, flash, serialize }
+module.exports = { q, qa, esc, raw, css, html, text, attr, time, params, cookie, store, flash, serialize }

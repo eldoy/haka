@@ -2,7 +2,7 @@ const { store } = require('../index.js')
 
 describe('store', () => {
   beforeEach(() => {
-    store('name', '', -1)
+    store('name', null)
   })
 
   it('should clear store', () => {
