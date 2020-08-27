@@ -26,6 +26,18 @@ window.qa = function(selector, scope, fn) {
   return nodes
 }
 
+window.esc = function(str) {
+  var el = document.createElement('p')
+  el.textContent = str
+  return el.innerHTML
+}
+
+window.raw = function(str) {
+  var el = document.createElement('p')
+  el.innerHTML = str
+  return el.textContent
+}
+
 window.css = function(selector, atts) {
   var el = q(selector)
   if (!el) return null
@@ -115,15 +127,25 @@ window.params = function(name) {
   return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
 }
 
-window.cookie = function(key, val, time) {
+window.cookie = function(key, val, opt) {
   if (typeof val == 'undefined') {
-    var val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
+    val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
     return val ? decodeURIComponent(val[2]) : null
-  } else {
-    var date = new Date
-    date.setTime(date.getTime() + 864e5 * (time || 30))
-    document.cookie = key + '=' + encodeURIComponent(val) + ';path=/;expires=' + date.toUTCString() + ';samesite=lax'
   }
+  if (!opt) opt = {}
+  if (val === null) {
+    val = ''
+    opt.days = -1
+  }
+  var days = opt.days || 30,
+    sameSite = opt.sameSite || 'Lax',
+    httpOnly = opt.httpOnly ? ';HttpOnly' : '',
+    secure = opt.secure ? ';Secure' : ''
+  var date = new Date
+  date.setTime(date.getTime() + 864e5 * days)
+  document.cookie = key + '=' + encodeURIComponent(val)
+    + ';path=/;expires=' + date.toUTCString()
+    + ';SameSite=' + sameSite + httpOnly + secure
 }
 
 window.store = function(key, val) {
@@ -151,15 +173,15 @@ window.flash = function(message, opt) {
   if (!opt) opt = {}
   var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (!el) return null
-  if (typeof window.timeout != 'undefined') {
-    clearTimeout(window.timeout)
+  if (typeof window.__$timeout != 'undefined') {
+    clearTimeout(window.__$timeout)
   }
   message = (message || cookie(name) || '').trim()
-  cookie(name, '', -1)
+  cookie(name, null)
   scroll(0, 0)
   el.textContent = message
   el.style.opacity = 1
-  window.timeout = setTimeout(function() { el.style.opacity = 0 }, time)
+  if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
   return el
 }
 
