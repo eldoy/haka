@@ -1,7 +1,7 @@
 # HAKA
 Functional Javascript HTML and DOM manipulation toolkit.
 
-The whole library is only 2K minified. Works in all browsers, including IE.
+The whole library is only 3K minified. Works in all browsers, including IE.
 
 ### Install
 `npm i haka`
@@ -10,7 +10,7 @@ The whole library is only 2K minified. Works in all browsers, including IE.
 Use only the functions you need, only `q` is required for most functions.
 ```js
 // From NodeJS
-var { q, qa, esc, raw, html, text, css, attr, time, cookie, flash, serialize } = require('haka')
+var { q, qa, esc, raw, html, text, css, attr, time, cookie, serialize, flash } = require('haka')
 
 // Include directly in your site
 <script src="/dist/haka-min.js"></script>
