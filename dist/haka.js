@@ -101,23 +101,29 @@ window.attr = function(selector, atts, value) {
   return el
 }
 
-window.time = function(date, format) {
-  if (!format) {
-    format = 'dd/mm/yyyy'
+window.time = function(date, opt) {
+  if (!opt) opt = {}
+  var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
+  var format = opt.format
+  if (format) {
+    var parts = {}
+    formatter.formatToParts(date).forEach(function(part) {
+      parts[part.type] = part.value
+    })
+    var matches = format.match(/%[A-z]+/gi) || []
+    matches.forEach(function(match) {
+      var key = match.slice(1).toLowerCase()
+      var value = parts[key]
+      if (value) {
+        if (typeof value == 'string' && /[A-Z]/.test(match[1])) {
+          value = value[0].toUpperCase() + value.slice(1)
+        }
+        format = format.replace(match, value)
+      }
+    })
+    return format
   }
-  var data = {
-    ss: ('00' + date.getSeconds()).slice(-2),
-    MM: ('00' + date.getMinutes()).slice(-2),
-    hh: ('00' + date.getHours()).slice(-2),
-    dd: ('00' + date.getDate()).slice(-2),
-    mm: ('00' + (date.getMonth() + 1)).slice(-2),
-    yyyy: ('0000' + date.getFullYear()).slice(-4),
-    yy: ('00' + date.getFullYear()).slice(-2)
-  }
-  for (var key in data) {
-    format = format.replace(key, data[key])
-  }
-  return format
+  return formatter.format(date)
 }
 
 window.params = function(name) {
