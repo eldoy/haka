@@ -130,11 +130,10 @@ time(date, {
   day: 'numeric',
   weekday: 'long',
   month: 'long',
-  format: '%Weekday %day. %Month'
+  format: '%weekday %day. %Month'
 })
-
-All options for [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) are supported.
 ```
+All options for [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) are supported.
 
 ### Query params
 Get URL query parameters.
