@@ -121,11 +121,19 @@ Formats date objects into date strings.
 ```js
 var date = new Date()
 
-// Default format is dd/mm/yyyy
+// Default language is 'en'
 time(date)
 
-// Custom format
-time(date, 'hh:MM:ss dd/mm-yy')
+// Options for language and format
+time(date, {
+  lang: 'no',
+  day: 'numeric',
+  weekday: 'long',
+  month: 'long',
+  format: '%Weekday %day. %Month'
+})
+
+All options for [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) are supported.
 ```
 
 ### Query params
