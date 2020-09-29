@@ -160,7 +160,6 @@ window.store = function(key, val) {
     if (item != null) {
       return JSON.parse(item)
     }
-    return
   }
   if (!key) return sessionStorage.clear()
   if (val === null) {
@@ -176,14 +175,21 @@ window.store = function(key, val) {
 }
 
 window.serialize = function(form) {
-  var data = {}, o, x
+  if (typeof form == 'string') form = q(form)
+  if (!form) return {}
+  var data = {}, option, key
+  function getValue(el) {
+    return el.getAttribute('data-type') == 'number' || el.type == 'number'
+      ? parseFloat(el.value)
+      : el.value
+  }
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
     if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
       if (field.type == 'select-multiple') {
         for (var j = 0, values = []; j < field.options.length; j++) {
-          if ((o = field.options[j]).selected) {
-            values.push(o.value)
+          if ((option = field.options[j]).selected) {
+            values.push(getValue(option))
           }
         }
         if (values.length) {
@@ -191,14 +197,12 @@ window.serialize = function(form) {
         }
       } else if (field.type == 'checkbox') {
         if (field.checked) {
-          data[(x = field.name)]
-            ? data[x].push(field.value)
-            : data[x] = [field.value]
+          data[(key = field.name)]
+            ? data[key].push(getValue(field))
+            : data[key] = [getValue(field)]
         }
       } else if (field.value != '' && field.type != 'radio' || field.checked) {
-        data[field.name] = field.type == 'number'
-          ? parseFloat(field.value)
-          : field.value
+        data[field.name] = getValue(field)
       }
     }
   }
