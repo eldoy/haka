@@ -160,7 +160,6 @@ const store = function(key, val) {
     if (item != null) {
       return JSON.parse(item)
     }
-    return
   }
   if (!key) return sessionStorage.clear()
   if (val === null) {
