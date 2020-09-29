@@ -4,8 +4,8 @@ function form(html) {
   document.body.innerHTML = `<form>${html}</form>`
 }
 
-function data() {
-  return serialize(document.querySelector('form'))
+function data(el = 'form') {
+  return serialize(document.querySelector(el))
 }
 
 describe('serialize', () => {
@@ -89,5 +89,35 @@ describe('serialize', () => {
     form(`<input type="checkbox" name="check_empty">
       <input type="checkbox" value="" name="check_empty">`)
     expect(data().check_empty).toBeUndefined()
+  })
+
+  it('should return empty object if form is undefined', () => {
+    expect(data().hello).toBeUndefined()
+  })
+
+  it('should work with string as input', () => {
+    form(`<input type="text" name="hello" value="1">`)
+    const data = serialize('form')
+    expect(data.hello).toBe('1')
+  })
+
+  it('should work with type number for selects', () => {
+    form(`<select data-type="number" name="hello"><option value="1.12">Hello</option></select>`)
+    expect(data().hello).toEqual(1.12)
+  })
+
+  it('should work with type number for radio buttons', () => {
+    form(`<input type="radio" data-type="number" name="hello" value="1.12" checked>`)
+    expect(data().hello).toEqual(1.12)
+  })
+
+  it('should work with type number for check boxes', () => {
+    form(`<input type="checkbox" data-type="number" name="hello" value="1.12" checked>`)
+    expect(data().hello).toEqual([1.12])
+  })
+
+  it('should work with type number for multiple select', () => {
+    form(`<select name="hello" multiple><option value="1.12" selected data-type="number">Hello</option></select>`)
+    expect(data().hello).toEqual([1.12])
   })
 })
