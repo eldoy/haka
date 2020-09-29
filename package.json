@@ -1,6 +1,6 @@
 {
   "name": "haka",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Functional Javascript HTML and DOM manipulation library",
   "main": "index.js",
   "scripts": {
