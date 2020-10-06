@@ -102,6 +102,8 @@ window.attr = function(selector, atts, value) {
 }
 
 window.time = function(date, opt) {
+  if (!date) return ''
+  if (typeof date == 'string') date = new Date(date)
   if (!opt) opt = {}
   var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
   var format = opt.format
@@ -126,9 +128,14 @@ window.time = function(date, opt) {
   return formatter.format(date)
 }
 
-window.params = function(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
-  var matcher = new RegExp('[\\?&]' + name + '=([^&#]*)')
+window.params = function(id) {
+  if (id == null) return ''
+  if (typeof id != 'string') {
+    id = parseInt(id || 0) + 1
+    return location.pathname.split('/')[id]
+  }
+  id = id.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var matcher = new RegExp('[\\?&]' + id + '=([^&#]*)')
   var result = matcher.exec(location.search)
   return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
 }
@@ -218,7 +225,7 @@ window.flash = function(message, opt) {
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
-  scroll(0, 0)
+  if (opt.scroll != false) scroll(0, 0)
   el.textContent = message
   el.style.opacity = 1
   if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
