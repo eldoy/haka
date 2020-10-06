@@ -22,6 +22,7 @@ describe('params', () => {
     expect(params(0)).toBe('site')
     expect(params(1)).toBe('name')
     expect(params(2)).toBe('campaign')
+    expect(params(3)).toBeUndefined()
   })
 
   it('should get numbered parameters mixed', () => {

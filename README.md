@@ -140,6 +140,10 @@ Get URL query parameters.
 ```js
 // Get the id parameter (?id=1)
 params('id')
+
+// Get parameters by number (/site/name)
+params(0) // site
+params(1) // name
 ```
 
 ### Cookies
