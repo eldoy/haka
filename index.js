@@ -128,9 +128,14 @@ const time = function(date, opt) {
   return formatter.format(date)
 }
 
-const params = function(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
-  var matcher = new RegExp('[\\?&]' + name + '=([^&#]*)')
+const params = function(id) {
+  if (id == null) return ''
+  if (typeof id != 'string') {
+    id = parseInt(id || 0) + 1
+    return location.pathname.split('/')[id]
+  }
+  id = id.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var matcher = new RegExp('[\\?&]' + id + '=([^&#]*)')
   var result = matcher.exec(location.search)
   return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
 }
