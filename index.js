@@ -102,6 +102,8 @@ const attr = function(selector, atts, value) {
 }
 
 const time = function(date, opt) {
+  if (!date) date = new Date
+  if (typeof date == 'string') date = new Date(date)
   if (!opt) opt = {}
   var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
   var format = opt.format

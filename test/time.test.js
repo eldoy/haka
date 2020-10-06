@@ -27,4 +27,26 @@ describe('time', () => {
     let result = time(date, { lang: 'no', day: 'numeric', weekday: 'long', month: 'long', format: '%Weekday %day. %Month'})
     expect(result).toBe('Fredag 4. September')
   })
+
+  it('should support empty, undefined or null date', () => {
+    let formatter = new Intl.DateTimeFormat()
+    let today = formatter.format(new Date())
+
+    let result = time()
+    expect(result).toBe(today)
+
+    result = time(undefined)
+    expect(result).toBe(today)
+
+    result = time(null)
+    expect(result).toBe(today)
+  })
+
+  it('should support string dates', () => {
+    let formatter = new Intl.DateTimeFormat()
+    let today = formatter.format(new Date())
+
+    let result = time(today)
+    expect(result).toBe(today)
+  })
 })
