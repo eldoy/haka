@@ -28,18 +28,23 @@ describe('time', () => {
     expect(result).toBe('Fredag 4. September')
   })
 
-  it('should support empty, undefined or null date', () => {
+  it('should show today\s date', () => {
     let formatter = new Intl.DateTimeFormat()
     let today = formatter.format(new Date())
 
-    let result = time()
+    let result = time(new Date)
     expect(result).toBe(today)
+  })
+
+  it('should support empty, undefined or null date', () => {
+    let result = time()
+    expect(result).toBe('')
 
     result = time(undefined)
-    expect(result).toBe(today)
+    expect(result).toBe('')
 
     result = time(null)
-    expect(result).toBe(today)
+    expect(result).toBe('')
   })
 
   it('should support string dates', () => {
