@@ -220,7 +220,7 @@ const flash = function(message, opt) {
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
-  scroll(0, 0)
+  if (opt.scroll != false) scroll(0, 0)
   el.textContent = message
   el.style.opacity = 1
   if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
