@@ -186,7 +186,7 @@ window.serialize = function(form) {
   if (!form) return {}
   var data = {}, option, key
   function getValue(el) {
-    return el.getAttribute('data-type') == 'number' || el.type == 'number'
+    return (el.value.length > 0 && (el.getAttribute('data-type') == 'number' || el.type == 'number'))
       ? parseFloat(el.value)
       : el.value
   }
@@ -199,16 +199,13 @@ window.serialize = function(form) {
             values.push(getValue(option))
           }
         }
-        if (values.length) {
-          data[field.name] = values
-        }
+        if (values.length) data[field.name] = values
       } else if (field.type == 'checkbox') {
         if (field.checked) {
-          data[(key = field.name)]
-            ? data[key].push(getValue(field))
-            : data[key] = [getValue(field)]
+          if (!data[key = field.name]) data[key] = []
+          data[key].push(getValue(field))
         }
-      } else if (field.value != '' && field.type != 'radio' || field.checked) {
+      } else if (field.type != 'radio' || field.checked) {
         data[field.name] = getValue(field)
       }
     }

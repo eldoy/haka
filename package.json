@@ -28,8 +28,8 @@
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^26.5.0",
-    "uglify-js": "^3.11.1"
+    "jest": "^26.5.3",
+    "uglify-js": "^3.11.2"
   },
   "dependencies": {}
 }
