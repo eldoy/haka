@@ -14,14 +14,14 @@ describe('serialize', () => {
     expect(data().hello).toBe('bye')
   })
 
-  it('should not get values from empty text inputs', () => {
+  it('should get values from empty text inputs', () => {
     form(`<input name="empty">`)
-    expect(data().empty).toBeUndefined()
+    expect(data().empty).toBe('')
   })
 
-  it('should not get values from empty number inputs', () => {
+  it('should get values from empty number inputs', () => {
     form(`<input type="number" name="blank" value="">`)
-    expect(data().blank).toBeUndefined()
+    expect(data().blank).toBe('')
   })
 
   it('should get values from number inputs', () => {
@@ -32,6 +32,11 @@ describe('serialize', () => {
   it('should get values from zero number input', () => {
     form(`<input type="number" name="amount" value="0">`)
     expect(data().amount).toEqual(0)
+  })
+
+  it('should get empty value from bad number inputs', () => {
+    form(`<input type="number" name="amount" value="a">`)
+    expect(data().amount).toBe('')
   })
 
   it('should get values from multiple selects', () => {
@@ -58,12 +63,12 @@ describe('serialize', () => {
     expect(data().select_single).toBe('1')
   })
 
-  it('should not get values from empty single select', () => {
+  it('should get values from empty single select', () => {
     form(`<select name="select_single_empty">
       <option></option>
       <option value=""></option>
     </select>`)
-    expect(data().select_single_empty).toBeUndefined()
+    expect(data().select_single_empty).toBe('')
   })
 
   it('should get values from radio buttons', () => {

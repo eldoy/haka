@@ -186,29 +186,26 @@ const serialize = function(form) {
   if (!form) return {}
   var data = {}, option, key
   function getValue(el) {
-    return el.getAttribute('data-type') == 'number' || el.type == 'number'
+    return (el.value.length > 0 && (el.getAttribute('data-type') == 'number' || el.type == 'number'))
       ? parseFloat(el.value)
       : el.value
   }
-  for (var i = 0; i < form.elements.length; i++) {
-    var field = form.elements[i]
+  for (var field of form.elements) {
     if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
       if (field.type == 'select-multiple') {
-        for (var j = 0, values = []; j < field.options.length; j++) {
-          if ((option = field.options[j]).selected) {
+        var values = []
+        for (var option of field.options) {
+          if (option.selected) {
             values.push(getValue(option))
           }
         }
-        if (values.length) {
-          data[field.name] = values
-        }
+        if (values.length) data[field.name] = values
       } else if (field.type == 'checkbox') {
         if (field.checked) {
-          data[(key = field.name)]
-            ? data[key].push(getValue(field))
-            : data[key] = [getValue(field)]
+          if (!data[key = field.name]) data[key] = []
+          data[key].push(getValue(field))
         }
-      } else if (field.value != '' && field.type != 'radio' || field.checked) {
+      } else if (field.type != 'radio' || field.checked) {
         data[field.name] = getValue(field)
       }
     }
