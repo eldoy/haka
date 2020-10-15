@@ -186,7 +186,7 @@ const serialize = function(form) {
   if (!form) return {}
   var data = {}, option, key
   function getValue(el) {
-    return (el.value.length > 0 && (el.getAttribute('data-type') == 'number' || el.type == 'number'))
+    return (el.value != '' && (el.getAttribute('data-type') == 'number' || el.type == 'number'))
       ? parseFloat(el.value)
       : el.value
   }
