@@ -225,9 +225,13 @@ const flash = function(message, opt) {
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
   if (opt.scroll != false) scroll(0, 0)
+  if (opt.class) el.classList.add(opt.class)
   el.textContent = message
   el.style.opacity = 1
-  if (time) window.__$flash = setTimeout(function() { el.style.opacity = 0 }, time)
+  if (time) window.__$flash = setTimeout(function() {
+    el.style.opacity = 0
+    if (opt.class) el.classList.remove(opt.class)
+  }, time)
   return el
 }
 
