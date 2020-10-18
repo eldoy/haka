@@ -219,15 +219,15 @@ const flash = function(message, opt) {
   if (!opt) opt = {}
   var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (!el) return null
-  if (typeof window.__$timeout != 'undefined') {
-    clearTimeout(window.__$timeout)
+  if (typeof window.__$flash != 'undefined') {
+    clearTimeout(window.__$flash)
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
   if (opt.scroll != false) scroll(0, 0)
   el.textContent = message
   el.style.opacity = 1
-  if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
+  if (time) window.__$flash = setTimeout(function() { el.style.opacity = 0 }, time)
   return el
 }
 
