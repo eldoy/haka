@@ -186,9 +186,11 @@ const serialize = function(form) {
   if (!form) return {}
   var data = {}, option, key
   function getValue(el) {
-    return (el.value.length > 0 && (el.getAttribute('data-type') == 'number' || el.type == 'number'))
-      ? parseFloat(el.value)
-      : el.value
+    if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
+      return parseFloat(el.value)
+    } else if (!(el.value == '' && el.getAttribute('data-blank') == '')) {
+      return el.value
+    }
   }
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
