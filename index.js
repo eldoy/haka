@@ -188,7 +188,7 @@ const serialize = function(form) {
   function getValue(el) {
     if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
       return parseFloat(el.value)
-    } else if (!(el.value == '' && el.getAttribute('data-blank') == '')) {
+    } else if (el.value != '' || el.getAttribute('data-blank') != '') {
       return el.value
     }
   }
