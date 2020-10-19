@@ -188,9 +188,8 @@ const serialize = function(form) {
   function getValue(el) {
     if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
       return parseFloat(el.value)
-    } else {
-      return el.value
     }
+    return el.value
   }
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
