@@ -188,7 +188,7 @@ window.serialize = function(form) {
   function getValue(el) {
     if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
       return parseFloat(el.value)
-    } else if (el.value != '' || el.getAttribute('data-blank') != '') {
+    } else {
       return el.value
     }
   }
@@ -207,7 +207,11 @@ window.serialize = function(form) {
           if (!data[key = field.name]) data[key] = []
           data[key].push(getValue(field))
         }
-      } else if (field.type != 'radio' || field.checked) {
+
+      } else if (
+        (field.type != 'radio' || field.checked) &&
+        (field.value != '' || field.getAttribute('data-blank') != '')
+      ) {
         data[field.name] = getValue(field)
       }
     }

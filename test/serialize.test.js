@@ -26,6 +26,7 @@ describe('serialize', () => {
 
   it('should not get values from empty text inputs with data-blank', () => {
     form(`<input name="empty" data-blank>`)
+    expect(Object.keys(data()).length).toBe(0)
     expect(data().empty).toBeUndefined()
   })
 
