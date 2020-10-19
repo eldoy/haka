@@ -164,9 +164,7 @@ const cookie = function(key, val, opt) {
 const store = function(key, val) {
   function get() {
     var item = sessionStorage.getItem(key)
-    if (item != null) {
-      return JSON.parse(item)
-    }
+    if (item != null) return JSON.parse(item)
   }
   if (!key) return sessionStorage.clear()
   if (val === null) {
@@ -206,7 +204,6 @@ const serialize = function(form) {
           if (!data[key = field.name]) data[key] = []
           data[key].push(getValue(field))
         }
-
       } else if (
         (field.type != 'radio' || field.checked) &&
         (field.value != '' || field.getAttribute('data-blank') != '')
