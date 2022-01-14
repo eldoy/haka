@@ -154,7 +154,16 @@ cookie('name', 'hello')
 // Set a cookie with expiry in days
 cookie('name', 'hello', { days: 7 })
 
-// Set a cookie with httpOnly and secure options
+// Set cookie domain, default is current domain
+cookie('name', 'hello', { domain: 'www.7i.no' })
+
+// Set cookie domain, all subdomains
+cookie('name', 'hello', { domain: '.7i.no' })
+
+// Set cookie path, default is '/'
+cookie('name', 'hello', { path: '/admin' })
+
+// Set cookie with httpOnly and secure options
 cookie('name', 'hello', { httpOnly: 1, secure: 1 })
 
 // Delete a cookie
