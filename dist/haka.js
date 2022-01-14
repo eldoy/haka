@@ -102,6 +102,8 @@ window.attr = function(selector, atts, value) {
 }
 
 window.time = function(date, opt) {
+  if (!date) return ''
+  if (typeof date == 'string') date = new Date(date)
   if (!opt) opt = {}
   var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
   var format = opt.format
@@ -126,9 +128,14 @@ window.time = function(date, opt) {
   return formatter.format(date)
 }
 
-window.params = function(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
-  var matcher = new RegExp('[\\?&]' + name + '=([^&#]*)')
+window.params = function(id) {
+  if (id == null) return ''
+  if (typeof id != 'string') {
+    id = parseInt(id || 0) + 1
+    return location.pathname.split('/')[id]
+  }
+  id = id.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var matcher = new RegExp('[\\?&]' + id + '=([^&#]*)')
   var result = matcher.exec(location.search)
   return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
 }
@@ -179,29 +186,37 @@ window.store = function(key, val) {
 }
 
 window.serialize = function(form) {
-  var data = {}, o, x
+  if (typeof form == 'string') form = q(form)
+  if (!form) return {}
+  var data = {}, option, key
+  function getValue(el) {
+    if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
+      return parseFloat(el.value)
+    } else {
+      return el.value
+    }
+  }
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
     if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
       if (field.type == 'select-multiple') {
         for (var j = 0, values = []; j < field.options.length; j++) {
-          if ((o = field.options[j]).selected) {
-            values.push(o.value)
+          if ((option = field.options[j]).selected) {
+            values.push(getValue(option))
           }
         }
-        if (values.length) {
-          data[field.name] = values
-        }
+        if (values.length) data[field.name] = values
       } else if (field.type == 'checkbox') {
         if (field.checked) {
-          data[(x = field.name)]
-            ? data[x].push(field.value)
-            : data[x] = [field.value]
+          if (!data[key = field.name]) data[key] = []
+          data[key].push(getValue(field))
         }
-      } else if (field.value != '' && field.type != 'radio' || field.checked) {
-        data[field.name] = field.type == 'number'
-          ? parseFloat(field.value)
-          : field.value
+
+      } else if (
+        (field.type != 'radio' || field.checked) &&
+        (field.value != '' || field.getAttribute('data-blank') != '')
+      ) {
+        data[field.name] = getValue(field)
       }
     }
   }
@@ -212,14 +227,18 @@ window.flash = function(message, opt) {
   if (!opt) opt = {}
   var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
   if (!el) return null
-  if (typeof window.__$timeout != 'undefined') {
-    clearTimeout(window.__$timeout)
+  if (typeof window.__$flash != 'undefined') {
+    clearTimeout(window.__$flash)
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
-  scroll(0, 0)
+  if (opt.scroll != false) scroll(0, 0)
+  if (opt.class) el.classList.add(opt.class)
   el.textContent = message
   el.style.opacity = 1
-  if (time) window.__$timeout = setTimeout(function() { el.style.opacity = 0 }, time)
+  if (time) window.__$flash = setTimeout(function() {
+    el.style.opacity = 0
+    if (opt.class) el.classList.remove(opt.class)
+  }, time)
   return el
 }
