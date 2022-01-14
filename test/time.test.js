@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { time } = require('../index.js')
 let dateString = '2020-09-03T22:14:23.132Z'
 let date = new Date(dateString)

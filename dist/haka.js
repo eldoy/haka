@@ -144,13 +144,17 @@ window.cookie = function(key, val, opt) {
     opt.days = -1
   }
   var days = opt.days || 30,
+    path = opt.path || '/',
+    domain = opt.domain ? ';domain=' + opt.domain : '',
     sameSite = opt.sameSite || 'Lax',
     httpOnly = opt.httpOnly ? ';HttpOnly' : '',
     secure = opt.secure ? ';Secure' : ''
+
   var date = new Date
   date.setTime(date.getTime() + 864e5 * days)
   document.cookie = key + '=' + encodeURIComponent(val)
-    + ';path=/;expires=' + date.toUTCString()
+    + ';path=' + path + domain
+    + ';expires=' + date.toUTCString()
     + ';SameSite=' + sameSite + httpOnly + secure
 }
 
@@ -160,7 +164,6 @@ window.store = function(key, val) {
     if (item != null) {
       return JSON.parse(item)
     }
-    return
   }
   if (!key) return sessionStorage.clear()
   if (val === null) {

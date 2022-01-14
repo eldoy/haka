@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { flash, cookie } = require('../index.js')
 
 describe('flash', () => {

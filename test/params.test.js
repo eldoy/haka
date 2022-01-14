@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { params } = require('../index.js')
 
 describe('params', () => {

@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { q, qa, css, html, text, attr, h } = require('../index.js')
 
 describe('elements', () => {

@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { serialize } = require('../index.js')
 
 function form(html) {

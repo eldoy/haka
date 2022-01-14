@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { esc, raw } = require('../index.js')
 
 describe('escape', () => {

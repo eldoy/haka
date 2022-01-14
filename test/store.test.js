@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { store } = require('../index.js')
 
 describe('store', () => {

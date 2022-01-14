@@ -1,3 +1,7 @@
+/**
+* @jest-environment jsdom
+*/
+
 const { cookie } = require('../index.js')
 
 describe('cookie', () => {
