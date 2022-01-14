@@ -10,7 +10,7 @@ The whole library is only 3K minified. Works in all browsers, including IE.
 Use only the functions you need, only `q` is required for most functions.
 ```js
 // From NodeJS
-var { q, qa, esc, raw, html, text, css, attr, time, cookie, serialize, flash } = require('haka')
+var { q, qa, esc, raw, css, html, text, attr, time, params, cookie, store, serialize, flash } = require('haka')
 
 // Include directly in your site
 <script src="/dist/haka-min.js"></script>
@@ -140,6 +140,10 @@ Get URL query parameters.
 ```js
 // Get the id parameter (?id=1)
 params('id')
+
+// Get parameters by number (/site/name)
+params(0) // site
+params(1) // name
 ```
 
 ### Cookies
