@@ -1,7 +1,7 @@
 # HAKA
 Functional Javascript HTML and DOM manipulation toolkit.
 
-The whole library is only 3K minified. Works in all browsers, including IE.
+The whole library is less than 4K minified. Works in all browsers, including IE.
 
 ### Install
 `npm i haka`
@@ -196,7 +196,37 @@ Collects values from `<form>` elements.
 // Serialize form
 var data = serialize(form)
 ```
-The values will not be included if the input fields are empty.
+The values will not be included if the input fields are empty or the `name` attribute is missing.
+
+The input fields have support for types:
+```html
+<!-- Convert the value to number -->
+<input type="number">
+
+<!-- The data-type attribute overrides the type attribute -->
+<input data-type="number">
+
+<!-- Convert to boolean, true or false -->
+<input data-type="bool" value="true">
+
+<!-- value false, off, 0 and '' becomes false -->
+<input data-type="bool" value="false">
+
+<!-- Convert to date object -->
+<input type="date" data-type="date" value="true">
+```
+
+You can specify defaults if the value is empty:
+```html
+<!-- Default value is 'hello' -->
+<input data-default="hello">
+
+<!-- Default value is empty string: '' -->
+<input data-default="">
+
+<!-- Combine with data-type, becomes the number 0 -->
+<input data-type="number" data-default="0">
+```
 
 ### Flash messages
 Displays flash message notifications. Depends on the `cookie` function.
