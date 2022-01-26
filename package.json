@@ -4,7 +4,7 @@
   "description": "Functional Javascript HTML and DOM manipulation library",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --verbose=false --watch",
     "build": "node scripts/build.js"
   },
   "repository": {

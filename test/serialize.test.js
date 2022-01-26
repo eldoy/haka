@@ -23,6 +23,11 @@ describe('serialize', () => {
     expect(data().empty).toBeUndefined()
   })
 
+  it('should not get values from empty set text inputs', () => {
+    form(`<input name="empty" value="">`)
+    expect(data().empty).toBeUndefined()
+  })
+
   it('should not get values from empty number inputs', () => {
     form(`<input type="number" name="blank" value="">`)
     expect(data().blank).toBeUndefined()
