@@ -44,10 +44,14 @@ const css = function(selector, atts) {
   if (typeof atts == 'string') {
     if (atts.indexOf(':') > -1) {
       el.style.cssText = atts
-    } else {
+    }
+
+    else {
       return el.style[atts]
     }
-  } else {
+  }
+
+  else {
     for (var key in atts) {
       el.style[key] = atts[key]
     }
@@ -60,11 +64,17 @@ const html = function(selector, h, x) {
   if (!el) return null
   if (typeof h == 'undefined') {
     return el.innerHTML
-  } else if (!x) {
+  }
+
+  else if (!x) {
     el.innerHTML = h
-  } else if (x[0] == 'r') {
+  }
+
+  else if (x[0] == 'r') {
     el.outerHTML = h
-  } else {
+  }
+
+  else {
     el.insertAdjacentHTML(
       x[0] == 'b' && 'beforebegin' ||
       x[0] == 'a' && 'afterend' ||
@@ -87,13 +97,16 @@ const text = function(selector, t) {
 const attr = function(selector, atts, value) {
   var el = q(selector)
   if (!el) return null
+
   if (typeof atts == 'string') {
     if (typeof value == 'undefined') {
       return el.getAttribute(atts)
     } else {
       el.setAttribute(atts, value)
     }
-  } else {
+  }
+
+  else {
     for (var key in atts) {
       atts[key] == null ? el.removeAttribute(key) : el.setAttribute(key, atts[key])
     }
@@ -137,7 +150,9 @@ const params = function(id) {
   id = id.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
   var matcher = new RegExp('[\\?&]' + id + '=([^&#]*)')
   var result = matcher.exec(location.search)
-  return result == null ? '' : decodeURIComponent(result[1].replace(/\+/g, ' '))
+  return result != null
+    ? decodeURIComponent(result[1].replace(/\+/g, ' '))
+    : ''
 }
 
 const cookie = function(key, val, opt) {
@@ -172,15 +187,23 @@ const store = function(key, val) {
       return JSON.parse(item)
     }
   }
-  if (!key) return sessionStorage.clear()
+
+  if (!key) {
+    return sessionStorage.clear()
+  }
+
   if (val === null) {
     var item = get()
     sessionStorage.removeItem(key)
     return item
-  } else if (val != null) {
+  }
+
+  else if (val != null) {
     sessionStorage.setItem(key, JSON.stringify(val))
     return val
-  } else {
+  }
+
+  else {
     return get()
   }
 }
@@ -253,15 +276,38 @@ const flash = function(message, opt) {
   }
   message = (message || cookie(name) || '').trim()
   cookie(name, null)
-  if (opt.scroll != false) scroll(0, 0)
-  if (opt.class) el.classList.add(opt.class)
+  if (opt.scroll != false) {
+    scroll(0, 0)
+  }
+  if (opt.class) {
+    el.classList.add(opt.class)
+  }
   el.textContent = message
   el.style.opacity = 1
-  if (time) window.__$flash = setTimeout(function() {
-    el.style.opacity = 0
-    if (opt.class) el.classList.remove(opt.class)
-  }, time)
+  if (time) {
+    window.__$flash = setTimeout(function() {
+      el.style.opacity = 0
+      if (opt.class) {
+        el.classList.remove(opt.class)
+      }
+    }, time)
+  }
   return el
 }
 
-module.exports = { q, qa, esc, raw, css, html, text, attr, time, params, cookie, store, serialize, flash }
+module.exports = {
+  q,
+  qa,
+  esc,
+  raw,
+  css,
+  html,
+  text,
+  attr,
+  time,
+  params,
+  cookie,
+  store,
+  serialize,
+  flash
+}
