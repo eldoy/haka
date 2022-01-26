@@ -223,6 +223,10 @@ const serialize = function(form) {
     if (val == null) return
     var type = el.getAttribute('data-type') || el.type
     if (type == 'number') return +val
+    if (type == 'date') {
+      var timestamp = Date.parse(val) || new Date().getTime()
+      return new Date(timestamp)
+    }
     if (type == 'bool') {
       if (['false', '0', '', 'off'].indexOf(val) > -1) {
         return false

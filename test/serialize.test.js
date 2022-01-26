@@ -140,6 +140,14 @@ describe('serialize', () => {
     expect(data().hello).toBe(false)
   })
 
+  it('should be a date object date type', () => {
+    form(`<input name="hello" data-type="date" value="2022-01-20">`)
+    expect(data().hello instanceof Date).toBe(true)
+    expect(data().hello.getUTCDate()).toBe(20)
+    expect(data().hello.getUTCMonth()).toBe(0)
+    expect(data().hello.getUTCFullYear()).toBe(2022)
+  })
+
   it('should get default value from text inputs', () => {
     form(`<input name="hello" data-default="hello">`)
     expect(data().hello).toBe('hello')
