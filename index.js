@@ -192,10 +192,10 @@ const serialize = function(form) {
   var data = {}
 
   function get(el) {
-    if(el.value.length && (el.getAttribute('data-type') == 'number' || el.type == 'number')) {
-      return parseFloat(el.value)
-    }
-    return el.value
+    var val = el.value || el.getAttribute('data-default') || ''
+    var type = el.getAttribute('data-type') || el.type
+    if (type == 'number') return +val
+    return val
   }
 
   for (var i = 0; i < form.elements.length; i++) {

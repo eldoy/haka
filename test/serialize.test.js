@@ -99,4 +99,9 @@ describe('serialize', () => {
       <input type="checkbox" value="" name="check_empty">`)
     expect(data().check_empty).toBeUndefined()
   })
+
+  it('should get values from text inputs', () => {
+    form(`<input name="hello" value="bye">`)
+    expect(data().hello).toBe('bye')
+  })
 })
