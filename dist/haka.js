@@ -267,7 +267,7 @@ window.serialize = function(form) {
       else if (field.type != 'radio' || field.checked) {
         var val = get(field)
         if (typeof val != 'undefined') {
-          data[field.name] = get(field)
+          data[field.name] = val
         }
       }
     }
