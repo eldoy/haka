@@ -228,7 +228,7 @@ const serialize = function(form) {
       return new Date(timestamp)
     }
     if (type == 'bool') {
-      if (['false', '0', '', 'off'].indexOf(val) > -1) {
+      if (['false', '0', 'off'].indexOf(val) > -1) {
         return false
       }
       return !!val
