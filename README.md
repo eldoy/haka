@@ -213,7 +213,7 @@ The input fields have support for types:
 <input data-type="bool" value="false">
 
 <!-- Convert to date object -->
-<input type="date" data-type="date" value="true">
+<input type="date" data-type="date">
 ```
 
 You can specify defaults if the value is empty:
