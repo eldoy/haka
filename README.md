@@ -209,7 +209,7 @@ The input fields have support for types:
 <!-- Convert to boolean, true or false -->
 <input data-type="bool" value="true">
 
-<!-- value false, off, 0 and '' becomes false -->
+<!-- Values false, off, 0 and '' becomes false -->
 <input data-type="bool" value="false">
 
 <!-- Convert to date object -->
