@@ -192,9 +192,16 @@ const serialize = function(form) {
   var data = {}
 
   function get(el) {
-    var val = el.value || el.getAttribute('data-default') || ''
+    var val = el.value || el.getAttribute('data-default')
+    if (val == null) return
     var type = el.getAttribute('data-type') || el.type
     if (type == 'number') return +val
+    if (type == 'bool') {
+      if (['false', '0', '', 'off'].indexOf(val) > -1) {
+        return false
+      }
+      return !!val
+    }
     return val
   }
 
@@ -226,8 +233,11 @@ const serialize = function(form) {
         }
       }
 
-      else if (field.value != '' && (field.type != 'radio' || field.checked)) {
-        data[field.name] = get(field)
+      else if (field.type != 'radio' || field.checked) {
+        var val = get(field)
+        if (typeof val != 'undefined') {
+          data[field.name] = get(field)
+        }
       }
     }
   }

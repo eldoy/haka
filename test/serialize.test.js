@@ -100,8 +100,53 @@ describe('serialize', () => {
     expect(data().check_empty).toBeUndefined()
   })
 
-  it('should get values from text inputs', () => {
-    form(`<input name="hello" value="bye">`)
-    expect(data().hello).toBe('bye')
+  it('should get empty from text field with empty number type', () => {
+    form(`<input name="hello" data-type="number">`)
+    expect(data().hello).toBeUndefined()
+  })
+
+  it('should get number from text field with number type', () => {
+    form(`<input name="hello" data-type="number" value="5">`)
+    expect(data().hello).toBe(5)
+  })
+
+  it('should be true with bool type string true', () => {
+    form(`<input name="hello" data-type="bool" value="true">`)
+    expect(data().hello).toBe(true)
+  })
+
+  it('should be true with bool type string 1', () => {
+    form(`<input name="hello" data-type="bool" value="1">`)
+    expect(data().hello).toBe(true)
+  })
+
+  it('should be true with bool type string on', () => {
+    form(`<input name="hello" data-type="bool" value="on">`)
+    expect(data().hello).toBe(true)
+  })
+
+  it('should be false with bool type string false', () => {
+    form(`<input name="hello" data-type="bool" value="false">`)
+    expect(data().hello).toBe(false)
+  })
+
+  it('should be false with bool type string 0', () => {
+    form(`<input name="hello" data-type="bool" value="0">`)
+    expect(data().hello).toBe(false)
+  })
+
+  it('should be false with bool type string off', () => {
+    form(`<input name="hello" data-type="bool" value="off">`)
+    expect(data().hello).toBe(false)
+  })
+
+  it('should get default value from text inputs', () => {
+    form(`<input name="hello" data-default="hello">`)
+    expect(data().hello).toBe('hello')
+  })
+
+  it('should get default empty value from text inputs', () => {
+    form(`<input name="hello" data-default="">`)
+    expect(data().hello).toBe('')
   })
 })
