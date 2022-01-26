@@ -101,7 +101,9 @@ const attr = function(selector, atts, value) {
   if (typeof atts == 'string') {
     if (typeof value == 'undefined') {
       return el.getAttribute(atts)
-    } else {
+    }
+
+    else {
       el.setAttribute(atts, value)
     }
   }
@@ -119,12 +121,14 @@ const time = function(date, opt) {
   if (typeof date == 'string') date = new Date(date)
   if (!opt) opt = {}
   var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
+
   var format = opt.format
   if (format) {
     var parts = {}
     formatter.formatToParts(date).forEach(function(part) {
       parts[part.type] = part.value
     })
+
     var matches = format.match(/%[A-z]+/gi) || []
     matches.forEach(function(match) {
       var key = match.slice(1).toLowerCase()
