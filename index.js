@@ -207,9 +207,7 @@ const store = function(key, val) {
     return val
   }
 
-  else {
-    return get()
-  }
+  return get()
 }
 
 const serialize = function(form) {
