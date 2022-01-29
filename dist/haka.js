@@ -207,9 +207,7 @@ window.store = function(key, val) {
     return val
   }
 
-  else {
-    return get()
-  }
+  return get()
 }
 
 window.serialize = function(form) {
