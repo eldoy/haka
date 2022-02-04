@@ -245,17 +245,14 @@ const serialize = function(form) {
             values.push(get(option))
           }
         }
-
-        if (values.length) {
-          data[field.name] = values
-        }
+        data[field.name] = values
 
       } else if (field.type == 'checkbox') {
+        var key = field.name
+        if (!data[key]) {
+          data[key] = []
+        }
         if (field.checked) {
-          var key = field.name
-          if (!data[key]) {
-            data[key] = []
-          }
           data[key].push(get(field))
         }
 

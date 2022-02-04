@@ -51,12 +51,12 @@ describe('serialize', () => {
     expect(data().select).toEqual(['1'])
   })
 
-  it('should not get values from empty multiple select', () => {
+  it('should get empty values from empty multiple select', () => {
     form(`<select multiple name="select_empty">
       <option value=""></option>
       <option></option>
     </select>`)
-    expect(data().select_empty).toBeUndefined()
+    expect(data().select_empty).toEqual([])
   })
 
   it('should get values from single select', () => {
@@ -94,10 +94,10 @@ describe('serialize', () => {
     expect(data().check).toEqual(['1'])
   })
 
-  it('should not get values from empty checkboxes', () => {
+  it('should get empty values from empty checkboxes', () => {
     form(`<input type="checkbox" name="check_empty">
       <input type="checkbox" value="" name="check_empty">`)
-    expect(data().check_empty).toBeUndefined()
+    expect(data().check_empty).toEqual([])
   })
 
   it('should get empty from text field with empty number type', () => {
