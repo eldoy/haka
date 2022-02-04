@@ -44,14 +44,12 @@ const css = function(selector, atts) {
   if (typeof atts == 'string') {
     if (atts.indexOf(':') > -1) {
       el.style.cssText = atts
-    }
 
-    else {
+    } else {
       return el.style[atts]
     }
-  }
 
-  else {
+  } else {
     for (var key in atts) {
       el.style[key] = atts[key]
     }
@@ -64,17 +62,14 @@ const html = function(selector, h, x) {
   if (!el) return null
   if (typeof h == 'undefined') {
     return el.innerHTML
-  }
 
-  else if (!x) {
+  } else if (!x) {
     el.innerHTML = h
-  }
 
-  else if (x[0] == 'r') {
+  } else if (x[0] == 'r') {
     el.outerHTML = h
-  }
 
-  else {
+  } else {
     el.insertAdjacentHTML(
       x[0] == 'b' && 'beforebegin' ||
       x[0] == 'a' && 'afterend' ||
@@ -101,14 +96,11 @@ const attr = function(selector, atts, value) {
   if (typeof atts == 'string') {
     if (typeof value == 'undefined') {
       return el.getAttribute(atts)
-    }
-
-    else {
+    } else {
       el.setAttribute(atts, value)
     }
-  }
 
-  else {
+  } else {
     for (var key in atts) {
       atts[key] == null ? el.removeAttribute(key) : el.setAttribute(key, atts[key])
     }
@@ -200,9 +192,8 @@ const store = function(key, val) {
     var item = get()
     sessionStorage.removeItem(key)
     return item
-  }
 
-  else if (val != null) {
+  } else if (val != null) {
     sessionStorage.setItem(key, JSON.stringify(val))
     return val
   }
@@ -250,9 +241,8 @@ const serialize = function(form) {
         if (values.length) {
           data[field.name] = values
         }
-      }
 
-      else if (field.type == 'checkbox') {
+      } else if (field.type == 'checkbox') {
         if (field.checked) {
           var key = field.name
           if (!data[key]) {
@@ -260,9 +250,8 @@ const serialize = function(form) {
           }
           data[key].push(get(field))
         }
-      }
 
-      else if (field.type != 'radio' || field.checked) {
+      } else if (field.type != 'radio' || field.checked) {
         var val = get(field)
         if (typeof val != 'undefined') {
           data[field.name] = val
