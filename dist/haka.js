@@ -44,14 +44,12 @@ window.css = function(selector, atts) {
   if (typeof atts == 'string') {
     if (atts.indexOf(':') > -1) {
       el.style.cssText = atts
-    }
 
-    else {
+    } else {
       return el.style[atts]
     }
-  }
 
-  else {
+  } else {
     for (var key in atts) {
       el.style[key] = atts[key]
     }
@@ -64,17 +62,14 @@ window.html = function(selector, h, x) {
   if (!el) return null
   if (typeof h == 'undefined') {
     return el.innerHTML
-  }
 
-  else if (!x) {
+  } else if (!x) {
     el.innerHTML = h
-  }
 
-  else if (x[0] == 'r') {
+  } else if (x[0] == 'r') {
     el.outerHTML = h
-  }
 
-  else {
+  } else {
     el.insertAdjacentHTML(
       x[0] == 'b' && 'beforebegin' ||
       x[0] == 'a' && 'afterend' ||
@@ -101,14 +96,11 @@ window.attr = function(selector, atts, value) {
   if (typeof atts == 'string') {
     if (typeof value == 'undefined') {
       return el.getAttribute(atts)
-    }
-
-    else {
+    } else {
       el.setAttribute(atts, value)
     }
-  }
 
-  else {
+  } else {
     for (var key in atts) {
       atts[key] == null ? el.removeAttribute(key) : el.setAttribute(key, atts[key])
     }
@@ -200,9 +192,8 @@ window.store = function(key, val) {
     var item = get()
     sessionStorage.removeItem(key)
     return item
-  }
 
-  else if (val != null) {
+  } else if (val != null) {
     sessionStorage.setItem(key, JSON.stringify(val))
     return val
   }
@@ -218,9 +209,17 @@ window.serialize = function(form) {
 
   function get(el) {
     var val = el.value || el.getAttribute('data-default')
-    if (val == null) return
+    if (val == null) {
+      return
+    }
     var type = el.getAttribute('data-type') || el.type
-    if (type == 'number') return +val
+    if (type == 'array') {
+      if (val == '[]') return []
+      return val.split(',').map(x => x.trim())
+    }
+    if (type == 'number') {
+      return +val
+    }
     if (type == 'date') {
       var timestamp = Date.parse(val) || new Date().getTime()
       return new Date(timestamp)
@@ -246,23 +245,18 @@ window.serialize = function(form) {
             values.push(get(option))
           }
         }
+        data[field.name] = values
 
-        if (values.length) {
-          data[field.name] = values
+      } else if (field.type == 'checkbox') {
+        var key = field.name
+        if (!data[key]) {
+          data[key] = []
         }
-      }
-
-      else if (field.type == 'checkbox') {
         if (field.checked) {
-          var key = field.name
-          if (!data[key]) {
-            data[key] = []
-          }
           data[key].push(get(field))
         }
-      }
 
-      else if (field.type != 'radio' || field.checked) {
+      } else if (field.type != 'radio' || field.checked) {
         var val = get(field)
         if (typeof val != 'undefined') {
           data[field.name] = val
