@@ -148,6 +148,16 @@ describe('serialize', () => {
     expect(data().hello.getUTCFullYear()).toBe(2022)
   })
 
+  it('should be undefined as string with array type', () => {
+    form(`<input name="hello" data-type="array" value="">`)
+    expect(data().hello).toBeUndefined()
+  })
+
+  it('should be an array as string with array type', () => {
+    form(`<input name="hello" data-type="array" value="1,2,3">`)
+    expect(data().hello).toEqual(['1', '2', '3'])
+  })
+
   it('should get default value from text inputs', () => {
     form(`<input name="hello" data-default="hello">`)
     expect(data().hello).toBe('hello')
@@ -157,4 +167,20 @@ describe('serialize', () => {
     form(`<input name="hello" data-default="">`)
     expect(data().hello).toBe('')
   })
+
+  it('should get default empty array as string from text inputs', () => {
+    form(`<input name="hello" data-default="[]">`)
+    expect(data().hello).toBe('[]')
+  })
+
+  it('should get default empty object from text inputs', () => {
+    form(`<input name="hello" data-default="{}">`)
+    expect(data().hello).toBe('{}')
+  })
+
+  it('should get default empty array as string from text inputs', () => {
+    form(`<input name="hello" data-type="array" data-default="[]">`)
+    expect(data().hello).toEqual([])
+  })
+
 })

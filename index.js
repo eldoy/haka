@@ -209,9 +209,17 @@ const serialize = function(form) {
 
   function get(el) {
     var val = el.value || el.getAttribute('data-default')
-    if (val == null) return
+    if (val == null) {
+      return
+    }
     var type = el.getAttribute('data-type') || el.type
-    if (type == 'number') return +val
+    if (type == 'array') {
+      if (val == '[]') return []
+      return val.split(',').map(x => x.trim())
+    }
+    if (type == 'number') {
+      return +val
+    }
     if (type == 'date') {
       var timestamp = Date.parse(val) || new Date().getTime()
       return new Date(timestamp)
