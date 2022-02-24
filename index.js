@@ -224,6 +224,9 @@ const serialize = function(form) {
       var timestamp = Date.parse(val) || new Date().getTime()
       return new Date(timestamp)
     }
+    if (type == 'null') {
+      return null
+    }
     if (type == 'bool') {
       if (['false', '0', 'off'].indexOf(val) > -1) {
         return false
@@ -235,32 +238,31 @@ const serialize = function(form) {
 
   for (var i = 0; i < form.elements.length; i++) {
     var field = form.elements[i]
+    var eligible = ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0
+    if (!eligible || !field.name || field.disabled) continue
 
-    if (field.name && !field.disabled && ['file', 'reset', 'submit', 'button'].indexOf(field.type) < 0) {
+    if (field.type == 'select-multiple') {
+      for (var j = 0, values = []; j < field.options.length; j++) {
+        var option = field.options[j]
+        if (option.selected) {
+          values.push(get(option))
+        }
+      }
+      data[field.name] = values
 
-      if (field.type == 'select-multiple') {
-        for (var j = 0, values = []; j < field.options.length; j++) {
-          var option = field.options[j]
-          if (option.selected) {
-            values.push(get(option))
-          }
-        }
-        data[field.name] = values
+    } else if (field.type == 'checkbox') {
+      var key = field.name
+      if (!data[key]) {
+        data[key] = []
+      }
+      if (field.checked) {
+        data[key].push(get(field))
+      }
 
-      } else if (field.type == 'checkbox') {
-        var key = field.name
-        if (!data[key]) {
-          data[key] = []
-        }
-        if (field.checked) {
-          data[key].push(get(field))
-        }
-
-      } else if (field.type != 'radio' || field.checked) {
-        var val = get(field)
-        if (typeof val != 'undefined') {
-          data[field.name] = val
-        }
+    } else if (field.type != 'radio' || field.checked) {
+      var val = get(field)
+      if (typeof val != 'undefined') {
+        data[field.name] = val
       }
     }
   }

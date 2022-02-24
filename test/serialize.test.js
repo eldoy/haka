@@ -140,6 +140,16 @@ describe('serialize', () => {
     expect(data().hello).toBe(false)
   })
 
+  it('should be "null" with default "null"', () => {
+    form(`<input name="hello" data-default="null">`)
+    expect(data().hello).toBe('null')
+  })
+
+  it('should be null with default "null" and data-type null', () => {
+    form(`<input name="hello" data-type="null" data-default="null">`)
+    expect(data().hello).toBeNull()
+  })
+
   it('should not get object from empty date', () => {
     form(`<input name="hello" type="date">`)
     expect(data().hello).toBeUndefined()
