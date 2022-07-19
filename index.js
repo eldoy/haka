@@ -27,6 +27,7 @@ const qa = function(selector, scope, fn) {
 }
 
 const esc = function(str) {
+  if (typeof str != 'string') return str
   return str.replace(
     /[&<>'"]/g,
     m => ({
@@ -40,6 +41,7 @@ const esc = function(str) {
 }
 
 const raw = function(str) {
+  if (typeof str != 'string') return str
   return str.replace(
     /&lt;|&gt;|&#39;|&quot;|&amp;/g,
     m => ({
