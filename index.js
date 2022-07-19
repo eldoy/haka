@@ -27,15 +27,29 @@ const qa = function(selector, scope, fn) {
 }
 
 const esc = function(str) {
-  var el = document.createElement('p')
-  el.textContent = str
-  return el.innerHTML
+  return str.replace(
+    /[&<>'"]/g,
+    m => ({
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;',
+        '&': '&amp;'
+      }[m] || m)
+  )
 }
 
 const raw = function(str) {
-  var el = document.createElement('p')
-  el.innerHTML = str
-  return el.textContent
+  return str.replace(
+    /&lt;|&gt;|&#39;|&quot;|&amp;/g,
+    m => ({
+      '&lt;': '<',
+      '&gt;': '>',
+      '&#39;': "'",
+      '&quot;': '"',
+      '&amp;': '&'
+    }[m] || m)
+  )
 }
 
 const css = function(selector, atts) {
