@@ -1,4 +1,4 @@
-window.q = function(selector, scope, fn) {
+window.q = function (selector, scope, fn) {
   if (typeof scope == 'function') {
     fn = scope
     scope = undefined
@@ -12,12 +12,14 @@ window.q = function(selector, scope, fn) {
   return selector
 }
 
-window.qa = function(selector, scope, fn) {
+window.qa = function (selector, scope, fn) {
   if (typeof scope == 'function') {
     fn = scope
     scope = undefined
   }
-  var nodes = (scope ? q(scope) || document : document).querySelectorAll(selector)
+  var nodes = (scope ? q(scope) || document : document).querySelectorAll(
+    selector
+  )
   if (typeof fn == 'function') {
     for (var i = 0; i < nodes.length; i++) {
       fn(nodes[i], scope)
@@ -26,11 +28,12 @@ window.qa = function(selector, scope, fn) {
   return nodes
 }
 
-window.esc = function(str) {
+window.esc = function (str) {
   if (typeof str != 'string') return str
   return str.replace(
     /[&<>'"]/g,
-    m => ({
+    (m) =>
+      ({
         '<': '&lt;',
         '>': '&gt;',
         "'": '&#39;',
@@ -40,31 +43,30 @@ window.esc = function(str) {
   )
 }
 
-window.raw = function(str) {
+window.raw = function (str) {
   if (typeof str != 'string') return str
   return str.replace(
     /&lt;|&gt;|&#39;|&quot;|&amp;/g,
-    m => ({
-      '&lt;': '<',
-      '&gt;': '>',
-      '&#39;': "'",
-      '&quot;': '"',
-      '&amp;': '&'
-    }[m] || m)
+    (m) =>
+      ({
+        '&lt;': '<',
+        '&gt;': '>',
+        '&#39;': "'",
+        '&quot;': '"',
+        '&amp;': '&'
+      }[m] || m)
   )
 }
 
-window.css = function(selector, atts) {
+window.css = function (selector, atts) {
   var el = q(selector)
   if (!el) return null
   if (typeof atts == 'string') {
     if (atts.indexOf(':') > -1) {
       el.style.cssText = atts
-
     } else {
       return el.style[atts]
     }
-
   } else {
     for (var key in atts) {
       el.style[key] = atts[key]
@@ -73,29 +75,28 @@ window.css = function(selector, atts) {
   return el
 }
 
-window.html = function(selector, h, x) {
+window.html = function (selector, h, x) {
   var el = q(selector)
   if (!el) return null
   if (typeof h == 'undefined') {
     return el.innerHTML
-
   } else if (!x) {
     el.innerHTML = h
-
   } else if (x[0] == 'r') {
     el.outerHTML = h
-
   } else {
     el.insertAdjacentHTML(
-      x[0] == 'b' && 'beforebegin' ||
-      x[0] == 'a' && 'afterend' ||
-      x[0] == 't' && 'afterbegin' ||
-      x[0] == 'e' && 'beforeend', h)
+      (x[0] == 'b' && 'beforebegin') ||
+        (x[0] == 'a' && 'afterend') ||
+        (x[0] == 't' && 'afterbegin') ||
+        (x[0] == 'e' && 'beforeend'),
+      h
+    )
   }
   return el
 }
 
-window.text = function(selector, t) {
+window.text = function (selector, t) {
   var el = q(selector)
   if (!el) return null
   if (typeof t == 'undefined') {
@@ -105,7 +106,7 @@ window.text = function(selector, t) {
   return el
 }
 
-window.attr = function(selector, atts, value) {
+window.attr = function (selector, atts, value) {
   var el = q(selector)
   if (!el) return null
 
@@ -115,30 +116,34 @@ window.attr = function(selector, atts, value) {
     } else {
       el.setAttribute(atts, value)
     }
-
   } else {
     for (var key in atts) {
-      atts[key] == null ? el.removeAttribute(key) : el.setAttribute(key, atts[key])
+      atts[key] == null
+        ? el.removeAttribute(key)
+        : el.setAttribute(key, atts[key])
     }
   }
   return el
 }
 
-window.time = function(date, opt) {
+window.time = function (date, opt) {
   if (!date) return ''
   if (typeof date == 'string') date = new Date(date)
+  if (typeof opt == 'string') opt = { lang: opt }
   if (!opt) opt = {}
-  var formatter = new Intl.DateTimeFormat(opt.lang || 'en', opt)
+  var lang = opt.lang || 'en'
+  delete opt.lang
+  var formatter = new Intl.DateTimeFormat(lang, opt)
 
   var format = opt.format
   if (format) {
     var parts = {}
-    formatter.formatToParts(date).forEach(function(part) {
+    formatter.formatToParts(date).forEach(function (part) {
       parts[part.type] = part.value
     })
 
     var matches = format.match(/%[A-z]+/gi) || []
-    matches.forEach(function(match) {
+    matches.forEach(function (match) {
       var key = match.slice(1).toLowerCase()
       var value = parts[key]
       if (value) {
@@ -153,7 +158,16 @@ window.time = function(date, opt) {
   return formatter.format(date)
 }
 
-window.params = function(id) {
+window.num = function (n, opt) {
+  if (typeof n == 'string') n = parseFloat(n.replace(/_/g, ''))
+  if (typeof opt == 'string') opt = { lang: opt }
+  if (!opt) opt = {}
+  var lang = opt.lang || 'en'
+  delete opt.lang
+  return new Intl.NumberFormat(lang, opt).format(n)
+}
+
+window.params = function (id) {
   if (id == null) return ''
   if (typeof id != 'string') {
     id = parseInt(id || 0) + 1
@@ -162,12 +176,10 @@ window.params = function(id) {
   id = id.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
   var matcher = new RegExp('[\\?&]' + id + '=([^&#]*)')
   var result = matcher.exec(location.search)
-  return result != null
-    ? decodeURIComponent(result[1].replace(/\+/g, ' '))
-    : ''
+  return result != null ? decodeURIComponent(result[1].replace(/\+/g, ' ')) : ''
 }
 
-window.cookie = function(key, val, opt) {
+window.cookie = function (key, val, opt) {
   if (typeof val == 'undefined') {
     val = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)')
     return val ? decodeURIComponent(val[2]) : null
@@ -184,15 +196,24 @@ window.cookie = function(key, val, opt) {
     httpOnly = opt.httpOnly ? ';HttpOnly' : '',
     secure = opt.secure ? ';Secure' : ''
 
-  var date = new Date
+  var date = new Date()
   date.setTime(date.getTime() + 864e5 * days)
-  document.cookie = key + '=' + encodeURIComponent(val)
-    + ';path=' + path + domain
-    + ';expires=' + date.toUTCString()
-    + ';SameSite=' + sameSite + httpOnly + secure
+  document.cookie =
+    key +
+    '=' +
+    encodeURIComponent(val) +
+    ';path=' +
+    path +
+    domain +
+    ';expires=' +
+    date.toUTCString() +
+    ';SameSite=' +
+    sameSite +
+    httpOnly +
+    secure
 }
 
-window.store = function(key, val) {
+window.store = function (key, val) {
   function get() {
     var item = sessionStorage.getItem(key)
     if (item != null) {
@@ -208,7 +229,6 @@ window.store = function(key, val) {
     var item = get()
     sessionStorage.removeItem(key)
     return item
-
   } else if (val != null) {
     sessionStorage.setItem(key, JSON.stringify(val))
     return val
@@ -217,7 +237,7 @@ window.store = function(key, val) {
   return get()
 }
 
-window.serialize = function(form) {
+window.serialize = function (form) {
   form = q(form)
   if (!form) return {}
 
@@ -231,7 +251,7 @@ window.serialize = function(form) {
     var type = el.getAttribute('data-type') || el.type
     if (type == 'array') {
       if (val == '[]') return []
-      return val.split(',').map(x => x.trim())
+      return val.split(',').map((x) => x.trim())
     }
     if (type == 'number') {
       return +val
@@ -265,7 +285,6 @@ window.serialize = function(form) {
         }
       }
       data[field.name] = values
-
     } else if (field.type == 'checkbox') {
       var key = field.name
       if (!data[key]) {
@@ -274,7 +293,6 @@ window.serialize = function(form) {
       if (field.checked) {
         data[key].push(get(field))
       }
-
     } else if (field.type != 'radio' || field.checked) {
       var val = get(field)
       if (typeof val != 'undefined') {
@@ -285,9 +303,11 @@ window.serialize = function(form) {
   return data
 }
 
-window.flash = function(message, opt) {
+window.flash = function (message, opt) {
   if (!opt) opt = {}
-  var el = q(opt.el || '#flash'), time = opt.time || 5000, name = opt.name || 'flash'
+  var el = q(opt.el || '#flash'),
+    time = opt.time || 5000,
+    name = opt.name || 'flash'
   if (!el) return null
   if (typeof window.__$flash != 'undefined') {
     clearTimeout(window.__$flash)
@@ -303,7 +323,7 @@ window.flash = function(message, opt) {
   el.textContent = message
   el.style.opacity = 1
   if (time) {
-    window.__$flash = setTimeout(function() {
+    window.__$flash = setTimeout(function () {
       el.style.opacity = 0
       if (opt.class) {
         el.classList.remove(opt.class)
