@@ -135,6 +135,29 @@ time(date, {
 ```
 All options for [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) are supported.
 
+### Number format
+Formats numbers based on locale.
+
+```js
+var number = 100000
+
+// Default language is 'en'
+num(number)
+
+// Custom language as string
+num(number, 'no')
+
+// Options for language and format
+num(number, {
+  lang: 'no',
+  style: 'currency',
+  currency: 'EUR',
+  maximumSignificantDigits: 3
+})
+```
+All options for [NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) are supported.
+
+
 ### Query params
 Get URL query parameters.
 ```js
