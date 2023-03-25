@@ -158,6 +158,15 @@ const time = function (date, opt) {
   return formatter.format(date)
 }
 
+const num = function (n, opt) {
+  if (typeof n == 'string') n = parseFloat(n.replace(/_/g, ''))
+  if (typeof opt == 'string') opt = { lang: opt }
+  if (!opt) opt = {}
+  var lang = opt.lang || 'en'
+  delete opt.lang
+  return new Intl.NumberFormat(lang, opt).format(n)
+}
+
 const params = function (id) {
   if (id == null) return ''
   if (typeof id != 'string') {
@@ -334,6 +343,7 @@ module.exports = {
   text,
   attr,
   time,
+  num,
   params,
   cookie,
   store,
