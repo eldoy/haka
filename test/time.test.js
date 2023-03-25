@@ -1,6 +1,6 @@
 /**
-* @jest-environment jsdom
-*/
+ * @jest-environment jsdom
+ */
 
 const { time } = require('../index.js')
 let dateString = '2020-09-03T22:14:23.132Z'
@@ -17,18 +17,35 @@ describe('time', () => {
     expect(result).toBe('4.9.2020')
   })
 
+  it('should support lang option as string', async () => {
+    let result = time(date, 'no')
+    expect(result).toBe('4.9.2020')
+  })
+
   it('should support long formats', async () => {
     let result = time(date, { lang: 'no', weekday: 'long', month: 'long' })
     expect(result).toBe('september fredag')
   })
 
   it('should support format option', async () => {
-    let result = time(date, { lang: 'no', day: 'numeric', weekday: 'long', month: 'long', format: '%weekday %day. %month'})
+    let result = time(date, {
+      lang: 'no',
+      day: 'numeric',
+      weekday: 'long',
+      month: 'long',
+      format: '%weekday %day. %month'
+    })
     expect(result).toBe('fredag 4. september')
   })
 
   it('should support format option with uppercase', async () => {
-    let result = time(date, { lang: 'no', day: 'numeric', weekday: 'long', month: 'long', format: '%Weekday %day. %Month'})
+    let result = time(date, {
+      lang: 'no',
+      day: 'numeric',
+      weekday: 'long',
+      month: 'long',
+      format: '%Weekday %day. %Month'
+    })
     expect(result).toBe('Fredag 4. September')
   })
 })
