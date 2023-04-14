@@ -46,7 +46,7 @@ esc('<div>Hello</div>')
 ```
 
 ### Unescape string
-Unsescapes an escaped string.
+Unescapes an escaped string.
 ```js
 // Outputs: <div>Hello</div>
 raw('&lt;div&gt;hello&lt;/div&gt;')
